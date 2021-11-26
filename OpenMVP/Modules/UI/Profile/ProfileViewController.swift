@@ -9,7 +9,7 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     
-//    var viewModel: <# name #>!
+    var viewModel: ProfileViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
