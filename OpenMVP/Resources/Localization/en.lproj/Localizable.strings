@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  OpenMVP
+
+  Created by Ayur Arkhipov on 27.11.2021.
+  
+*/
+
+"home" = "Home";
+"profile" = "Profile";
+"follow" = "Follow";
+"liked-by-person-and-others" = "Liked by %@ and %d others";
+"liked-by-persons" = "Liked by %d";
