@@ -15,8 +15,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
-        window.rootViewController = MainTabBarController()
+        NotificationCenter.default.addObserver(self, selector:#selector(authorized(notification:)), name: LoginViewModel.NotificationAuthorized, object: nil)
+        
+        let vc: LoginViewController = LoginViewController.instantiate(appStoryboard: .auth)
+        let navigationController = UINavigationController(rootViewController: vc)
+        vc.viewModel = LoginViewModel(navigator: LoginNavigator(navigationController: navigationController))
+        
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
         self.window = window
+    }
+    
+    @objc func authorized(notification: Notification) {
+        self.window?.rootViewController = MainTabBarController()
     }
 }

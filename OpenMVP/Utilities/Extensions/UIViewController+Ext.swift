@@ -13,6 +13,20 @@ import PKHUD
 
 extension UIViewController {
     
+
+        class func instantiate<T: UIViewController>(appStoryboard: AppStoryboard) -> T {
+
+            let storyboard = UIStoryboard(name: appStoryboard.rawValue, bundle: nil)
+            let identifier = String(describing: self)
+            return storyboard.instantiateViewController(withIdentifier: identifier) as! T
+        }
+    
+//    static func instantiateFrom<T: UIViewController>(storyboard name: String) -> T {
+//        let storyboard = UIStoryboard(name: name, bundle: nil)
+//        let vc = storyboard.instantiateViewController(withIdentifier: Utilities.classNameAsString(obj: T.self))
+//        return vc as! T
+//    }
+    
     var appDelegate:AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }

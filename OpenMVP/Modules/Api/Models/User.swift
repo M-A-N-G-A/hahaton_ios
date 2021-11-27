@@ -10,7 +10,7 @@ import UIKit
 struct User: Codable {
     let id = UUID()
     let userName: String
-    let accuracy: Int?
+    let accuracy: String?
     let description: String?
     let email: String
     let imageFile: String

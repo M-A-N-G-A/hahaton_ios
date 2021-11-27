@@ -15,6 +15,9 @@ protocol RoutePath {
 struct Api {
     enum Routes: RoutePath {
         
+        /// post
+        case login
+        
         case comments(Comments)
         enum Comments: RoutePath {
             /// post: id of post
@@ -56,6 +59,8 @@ struct Api {
         
         var path: String {
             switch self {
+            case .login:
+                return "login"
             case let .posts(post):
                 return "posts/" + post.path
             case let .users(user):
@@ -82,8 +87,6 @@ struct Api {
                 observer.onError(Errors.urlIsNil)
                 return Disposables.create()
             }
-            Log.thisFunction()
-            Log.debug(url)
             
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let error = error {
@@ -92,10 +95,7 @@ struct Api {
                 }
                 guard let data = data else { return }
                 do {
-                    Log.debug(response)
-                    Log.debug(data)
                     let result = try JSONDecoder().decode(ResultType.self, from: data)
-                    Log.debug(result)
                     observer.onNext(result)
                     observer.onCompleted()
                 } catch {
@@ -114,8 +114,6 @@ struct Api {
                 observer.onError(Errors.urlIsNil)
                 return Disposables.create()
             }
-            Log.thisFunction()
-            Log.debug(url)
             
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let error = error {
@@ -124,10 +122,7 @@ struct Api {
                 }
                 guard let data = data else { return }
                 do {
-                    Log.debug(response)
-                    Log.debug(data)
                     let result = try JSONDecoder().decode([ResultType].self, from: data)
-                    Log.debug(result)
                     observer.onNext(result)
                     observer.onCompleted()
                 } catch {

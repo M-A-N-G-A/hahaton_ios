@@ -23,7 +23,7 @@ final class ProfileViewModel: ViewModelType {
         let image: Driver<UIImage>
         let followers: Driver<Int?>
         let name: Driver<String>
-        let accuracy: Driver<Int?>
+        let accuracy: Driver<String?>
         let description: Driver<String>
         
         let actions: Actions
@@ -44,11 +44,12 @@ final class ProfileViewModel: ViewModelType {
     func transform(input: Input) -> Output {
         let fetchTrigger = input.willAppear
         let user = fetchTrigger
-//            .flatMap { _ -> SharedSequence<DriverSharingStrategy, [User]> in
-//                self.api.requestArray(by: .users(.byName("investor1"))).asDriverOnErrorJustComplete()
-//            }
-            .map {
-                self.api.requestArray(by: .users(.byName("investor1")))
+            .flatMap { _ -> SharedSequence<DriverSharingStrategy, [User]> in
+                let currentUserResult: Result<User, Error> = AppUserDefaults.currentUser.get()
+                guard case let .success(user) = currentUserResult else {
+                    return Driver.just([])
+                }
+                return self.api.requestArray(by: .users(.byName(user.userName))).asDriverOnErrorJustComplete()
             }
             .debug()
             .map { $0.first }
