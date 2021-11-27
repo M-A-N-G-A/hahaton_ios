@@ -13,7 +13,7 @@ final class PostLikesView: UILabel {
         
     func setup(with users: [User]) {
         if let lastUser = users.last {
-            text = AppLocalizator.likedByPersonAndOthers.localized(with: lastUser.name, users.count)
+            text = AppLocalizator.likedByPersonAndOthers.localized(with: lastUser.userName, users.count)
             return
         }
         text = AppLocalizator.likedByPersons.localized(with: users.count)

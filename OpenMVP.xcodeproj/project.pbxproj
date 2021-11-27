@@ -46,6 +46,10 @@
 		185276B927517BA200CCE9E7 /* PostActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185276B827517BA200CCE9E7 /* PostActionsView.swift */; };
 		185276BB27517DE700CCE9E7 /* PostLikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185276BA27517DE700CCE9E7 /* PostLikesView.swift */; };
 		185276BD2751973200CCE9E7 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185276BC2751973200CCE9E7 /* UIViewController+Ext.swift */; };
+		185276C02751AD2100CCE9E7 /* ProfileSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185276BF2751AD2100CCE9E7 /* ProfileSummaryView.swift */; };
+		185276C22751AF9C00CCE9E7 /* ProfileActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185276C12751AF9C00CCE9E7 /* ProfileActionsView.swift */; };
+		185276C52751B56400CCE9E7 /* ProfileAdditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185276C42751B56400CCE9E7 /* ProfileAdditionsViewController.swift */; };
+		185276C82751B67D00CCE9E7 /* PostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185276C72751B67D00CCE9E7 /* PostsViewController.swift */; };
 		3D95B4449EE07E85DCE1D7C8 /* Pods_OpenMVP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E23DD3C8031D89E10A3F49AF /* Pods_OpenMVP.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +97,10 @@
 		185276B827517BA200CCE9E7 /* PostActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostActionsView.swift; sourceTree = "<group>"; };
 		185276BA27517DE700CCE9E7 /* PostLikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLikesView.swift; sourceTree = "<group>"; };
 		185276BC2751973200CCE9E7 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		185276BF2751AD2100CCE9E7 /* ProfileSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSummaryView.swift; sourceTree = "<group>"; };
+		185276C12751AF9C00CCE9E7 /* ProfileActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileActionsView.swift; sourceTree = "<group>"; };
+		185276C42751B56400CCE9E7 /* ProfileAdditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAdditionsViewController.swift; sourceTree = "<group>"; };
+		185276C72751B67D00CCE9E7 /* PostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewController.swift; sourceTree = "<group>"; };
 		2830A8507997842050F51C09 /* Pods-OpenMVP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMVP.release.xcconfig"; path = "Target Support Files/Pods-OpenMVP/Pods-OpenMVP.release.xcconfig"; sourceTree = "<group>"; };
 		AC8EC55BC1A626051EE41E08 /* Pods-OpenMVP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMVP.debug.xcconfig"; path = "Target Support Files/Pods-OpenMVP/Pods-OpenMVP.debug.xcconfig"; sourceTree = "<group>"; };
 		E23DD3C8031D89E10A3F49AF /* Pods_OpenMVP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenMVP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -273,6 +281,8 @@
 				1852767B2751651A00CCE9E7 /* ProfileNavigator.swift */,
 				1852767527515E5C00CCE9E7 /* ProfileViewController.swift */,
 				1852767F2751654900CCE9E7 /* ProfileViewModel.swift */,
+				185276C32751B54900CCE9E7 /* Additions */,
+				185276BE2751AC7800CCE9E7 /* Views */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -373,6 +383,32 @@
 				185276BA27517DE700CCE9E7 /* PostLikesView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		185276BE2751AC7800CCE9E7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				185276BF2751AD2100CCE9E7 /* ProfileSummaryView.swift */,
+				185276C12751AF9C00CCE9E7 /* ProfileActionsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		185276C32751B54900CCE9E7 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				185276C42751B56400CCE9E7 /* ProfileAdditionsViewController.swift */,
+				185276C62751B66E00CCE9E7 /* Posts */,
+			);
+			path = Additions;
+			sourceTree = "<group>";
+		};
+		185276C62751B66E00CCE9E7 /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				185276C72751B67D00CCE9E7 /* PostsViewController.swift */,
+			);
+			path = Posts;
 			sourceTree = "<group>";
 		};
 		63C80DD0B65E3703E558EAE8 /* Pods */ = {
@@ -511,7 +547,10 @@
 				1852767327515D9B00CCE9E7 /* ViewModelType.swift in Sources */,
 				185276A0275172B200CCE9E7 /* UIColor+Ext.swift in Sources */,
 				185276902751694C00CCE9E7 /* User.swift in Sources */,
+				185276C82751B67D00CCE9E7 /* PostsViewController.swift in Sources */,
+				185276C22751AF9C00CCE9E7 /* ProfileActionsView.swift in Sources */,
 				185276A2275172F000CCE9E7 /* String+Ext.swift in Sources */,
+				185276C02751AD2100CCE9E7 /* ProfileSummaryView.swift in Sources */,
 				1852768E2751694000CCE9E7 /* Post.swift in Sources */,
 				1852766C27515C1300CCE9E7 /* FontFamilyProvider.swift in Sources */,
 				18527648275156BD00CCE9E7 /* MainTabBarController.swift in Sources */,
@@ -530,6 +569,7 @@
 				1852766F27515D8500CCE9E7 /* HomeViewController.swift in Sources */,
 				18527646275156BD00CCE9E7 /* SceneDelegate.swift in Sources */,
 				18527688275168DD00CCE9E7 /* HomeSectionModel.swift in Sources */,
+				185276C52751B56400CCE9E7 /* ProfileAdditionsViewController.swift in Sources */,
 				185276AE2751786700CCE9E7 /* Localizable.swift in Sources */,
 				1852769E2751722800CCE9E7 /* StockCellViewModel.swift in Sources */,
 				185276B927517BA200CCE9E7 /* PostActionsView.swift in Sources */,

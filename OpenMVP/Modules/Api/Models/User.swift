@@ -9,8 +9,21 @@ import UIKit
 
 struct User {
     let id: String = UUID().uuidString
-    let name: String
+    let userName: String
+    let accuracy: Float?
+    let description: String?
+    let email: String
+    let followers: Int?
     let profileIcon: String?
+    
+    init(userName: String, accuracy: Float = 0, description: String? = nil, email: String = "", followers: Int? = nil, profileIcon: String? = nil) {
+        self.userName = userName
+        self.accuracy = accuracy
+        self.description = description
+        self.email = email
+        self.followers = followers
+        self.profileIcon = profileIcon
+    }
 }
 
 extension User: Equatable {

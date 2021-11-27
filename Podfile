@@ -27,5 +27,6 @@ target 'OpenMVP' do
   cocoaLumberjack
   pod 'SnapKit', '~> 5.0.0'
   pod 'PKHUD', '~> 5.0'
+  pod 'Tabman', '~> 2.11'
 
 end

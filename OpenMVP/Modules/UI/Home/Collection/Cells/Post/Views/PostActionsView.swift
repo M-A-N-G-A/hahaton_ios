@@ -14,7 +14,7 @@ final class PostActionsView: UIView {
     private lazy var hStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 4
+        stackView.spacing = 12
         stackView.alignment = .leading
         stackView.distribution = .equalSpacing
         return stackView

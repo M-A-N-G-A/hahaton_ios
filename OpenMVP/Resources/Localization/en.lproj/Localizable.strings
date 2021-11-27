@@ -11,3 +11,7 @@
 "follow" = "Follow";
 "liked-by-person-and-others" = "Liked by %@ and %d others";
 "liked-by-persons" = "Liked by %d";
+"message" = "Message";
+"num-followers" = "%d\nFollowers";
+"num-trade-accuracy" = "%d\nTrade\nAccuracy";
+"na-trade-accuracy" = "N/A\nTrade\nAccuracy";

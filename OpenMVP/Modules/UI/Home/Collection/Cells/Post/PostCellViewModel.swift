@@ -55,7 +55,7 @@ final class PostCellViewModel: ViewModelType {
         let profileImage = Driver.just(model.creator.profileIcon)
             .map { $0?.image() }
             .compactMap { $0 }
-        let profileName = Driver.just(model.creator.name)
+        let profileName = Driver.just(model.creator.userName)
         let time = Driver.just(model.time)
             .map { self.prepare(time: $0) }
         
