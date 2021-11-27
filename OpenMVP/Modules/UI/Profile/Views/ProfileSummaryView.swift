@@ -121,7 +121,7 @@ extension ProfileSummaryView {
         }
     }
     
-    var accuracyBinder: Binder<Float?> {
+    var accuracyBinder: Binder<Int?> {
         Binder(self) { view, accuracy in
             guard let accuracy = accuracy else {
                 view.accuracyLabel.text = AppLocalizator.naTradeAccuracy.localized

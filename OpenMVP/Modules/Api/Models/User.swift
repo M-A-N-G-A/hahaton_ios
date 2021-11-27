@@ -7,25 +7,24 @@
 
 import UIKit
 
-struct User {
-    let id: String = UUID().uuidString
+struct User: Codable {
+    let id = UUID()
     let userName: String
-    let accuracy: Float?
+    let accuracy: Int?
     let description: String?
     let email: String
-    let followers: Int?
-    let profileIcon: String?
-    
-    init(userName: String, accuracy: Float = 0, description: String? = nil, email: String = "", followers: Int? = nil, profileIcon: String? = nil) {
-        self.userName = userName
-        self.accuracy = accuracy
-        self.description = description
-        self.email = email
-        self.followers = followers
-        self.profileIcon = profileIcon
+    let imageFile: String
+    let followers: [User]? // check it
+
+    enum CodingKeys: String, CodingKey {
+        case userName = "username"
+        case accuracy = "accuracy"
+        case description = "description"
+        case email = "email"
+        case imageFile = "image_file"
+        case followers = "followers"
     }
 }
-
 extension User: Equatable {
     static func == (lhs: User, rhs: User) -> Bool {
         lhs.id == rhs.id

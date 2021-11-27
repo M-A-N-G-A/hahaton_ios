@@ -45,15 +45,15 @@ final class HomeViewModel: ViewModelType {
         Stock(title: "Tesla", icon: "Tesla.icon", description: "Tesla stock is stock", value: 1348)
     ]
     
-    let posts = [
-        Post(creator: User(userName: "Ben", profileIcon: "Ben.icon"), message: "Doge coin is shit", image: "doge icon", views: 110, time: Date(), likes: [User(userName: "Ben", profileIcon: "Ben.icon"), User(userName: "Alex", profileIcon: "Ben.icon"), User(userName: "Nick", profileIcon: "Ben.icon")], messages: [Message(sender: User(userName: "Ben", profileIcon: "Ben.icon"), message: "ben message")]),
-        Post(creator: User(userName: "Ben", profileIcon: "Ben.icon"), message: "Doge coin is shit", image: "doge icon", views: 110, time: Date(), likes: [User(userName: "Ben", profileIcon: "Ben.icon"), User(userName: "Alex", profileIcon: "Ben.icon"), User(userName: "Nick", profileIcon: "Ben.icon")], messages: [Message(sender: User(userName: "Ben", profileIcon: "Ben.icon"), message: "ben message")]),
-        Post(creator: User(userName: "Ben", profileIcon: "Ben.icon"), message: "Doge coin is shit", image: "doge icon", views: 110, time: Date(), likes: [User(userName: "Ben", profileIcon: "Ben.icon"), User(userName: "Alex", profileIcon: "Ben.icon"), User(userName: "Nick", profileIcon: "Ben.icon")], messages: [Message(sender: User(userName: "Ben", profileIcon: "Ben.icon"), message: "ben message")]),
-        Post(creator: User(userName: "Ben", profileIcon: "Ben.icon"), message: "Doge coin is shit", image: "doge icon", views: 110, time: Date(), likes: [User(userName: "Ben", profileIcon: "Ben.icon"), User(userName: "Alex", profileIcon: "Ben.icon"), User(userName: "Nick", profileIcon: "Ben.icon")], messages: [Message(sender: User(userName: "Ben", profileIcon: "Ben.icon"), message: "ben message")]),
-        Post(creator: User(userName: "Ben", profileIcon: "Ben.icon"), message: "Doge coin is shit", image: "doge icon", views: 110, time: Date(), likes: [User(userName: "Ben", profileIcon: "Ben.icon"), User(userName: "Alex", profileIcon: "Ben.icon"), User(userName: "Nick", profileIcon: "Ben.icon")], messages: [Message(sender: User(userName: "Ben", profileIcon: "Ben.icon"), message: "ben message")]),
-        Post(creator: User(userName: "Ben", profileIcon: "Ben.icon"), message: "Doge coin is shit", image: "doge icon", views: 110, time: Date(), likes: [User(userName: "Ben", profileIcon: "Ben.icon"), User(userName: "Alex", profileIcon: "Ben.icon"), User(userName: "Nick", profileIcon: "Ben.icon")], messages: [Message(sender: User(userName: "Ben", profileIcon: "Ben.icon"), message: "ben message")]),
-        Post(creator: User(userName: "Ben", profileIcon: "Ben.icon"), message: "Doge coin is shit", image: "doge icon", views: 110, time: Date(), likes: [User(userName: "Ben", profileIcon: "Ben.icon"), User(userName: "Alex", profileIcon: "Ben.icon"), User(userName: "Nick", profileIcon: "Ben.icon")], messages: [Message(sender: User(userName: "Ben", profileIcon: "Ben.icon"), message: "ben message")])
-    ]
+//    let posts = [
+//        Post(creator: User(userName: "Ben", profileIcon: "Ben.icon"), message: "Doge coin is shit", image: "doge icon", views: 110, time: Date(), likes: [User(userName: "Ben", profileIcon: "Ben.icon"), User(userName: "Alex", profileIcon: "Ben.icon"), User(userName: "Nick", profileIcon: "Ben.icon")], messages: [Message(sender: User(userName: "Ben", profileIcon: "Ben.icon"), message: "ben message")]),
+//        Post(creator: User(userName: "Ben", profileIcon: "Ben.icon"), message: "Doge coin is shit", image: "doge icon", views: 110, time: Date(), likes: [User(userName: "Ben", profileIcon: "Ben.icon"), User(userName: "Alex", profileIcon: "Ben.icon"), User(userName: "Nick", profileIcon: "Ben.icon")], messages: [Message(sender: User(userName: "Ben", profileIcon: "Ben.icon"), message: "ben message")]),
+//        Post(creator: User(userName: "Ben", profileIcon: "Ben.icon"), message: "Doge coin is shit", image: "doge icon", views: 110, time: Date(), likes: [User(userName: "Ben", profileIcon: "Ben.icon"), User(userName: "Alex", profileIcon: "Ben.icon"), User(userName: "Nick", profileIcon: "Ben.icon")], messages: [Message(sender: User(userName: "Ben", profileIcon: "Ben.icon"), message: "ben message")]),
+//        Post(creator: User(userName: "Ben", profileIcon: "Ben.icon"), message: "Doge coin is shit", image: "doge icon", views: 110, time: Date(), likes: [User(userName: "Ben", profileIcon: "Ben.icon"), User(userName: "Alex", profileIcon: "Ben.icon"), User(userName: "Nick", profileIcon: "Ben.icon")], messages: [Message(sender: User(userName: "Ben", profileIcon: "Ben.icon"), message: "ben message")]),
+//        Post(creator: User(userName: "Ben", profileIcon: "Ben.icon"), message: "Doge coin is shit", image: "doge icon", views: 110, time: Date(), likes: [User(userName: "Ben", profileIcon: "Ben.icon"), User(userName: "Alex", profileIcon: "Ben.icon"), User(userName: "Nick", profileIcon: "Ben.icon")], messages: [Message(sender: User(userName: "Ben", profileIcon: "Ben.icon"), message: "ben message")]),
+//        Post(creator: User(userName: "Ben", profileIcon: "Ben.icon"), message: "Doge coin is shit", image: "doge icon", views: 110, time: Date(), likes: [User(userName: "Ben", profileIcon: "Ben.icon"), User(userName: "Alex", profileIcon: "Ben.icon"), User(userName: "Nick", profileIcon: "Ben.icon")], messages: [Message(sender: User(userName: "Ben", profileIcon: "Ben.icon"), message: "ben message")]),
+//        Post(creator: User(userName: "Ben", profileIcon: "Ben.icon"), message: "Doge coin is shit", image: "doge icon", views: 110, time: Date(), likes: [User(userName: "Ben", profileIcon: "Ben.icon"), User(userName: "Alex", profileIcon: "Ben.icon"), User(userName: "Nick", profileIcon: "Ben.icon")], messages: [Message(sender: User(userName: "Ben", profileIcon: "Ben.icon"), message: "ben message")])
+//    ]
     
     let navigator: HomeNavigatorProtocol
     
@@ -74,9 +74,9 @@ final class HomeViewModel: ViewModelType {
                 dataSource.append(.stockSection(items: self.stocks.map {
                     HomeCellSectionItem.stockSectionItem(stock: $0)
                 }))
-                dataSource.append(.postSection(items: self.posts.map {
-                    HomeCellSectionItem.postSectionItem(post: $0)
-                }))
+//                dataSource.append(.postSection(items: self.posts.map {
+//                    HomeCellSectionItem.postSectionItem(post: $0)
+//                }))
                 return dataSource
             }
         

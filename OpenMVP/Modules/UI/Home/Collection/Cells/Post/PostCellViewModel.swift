@@ -52,20 +52,22 @@ final class PostCellViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         
-        let profileImage = Driver.just(model.creator.profileIcon)
+        let profileImage = Driver.just(model.user?.imageFile)
             .map { $0?.image() }
             .compactMap { $0 }
-        let profileName = Driver.just(model.creator.userName)
-        let time = Driver.just(model.time)
+        let profileName = Driver.just(model.user?.userName)
+            .compactMap { $0 }
+        let time = Driver.just(model.datePosted)
             .map { self.prepare(time: $0) }
         
-        let message = Driver.just(model.message)
-        let image = Driver.just(model.image)
-            .map { $0?.image() }
+        let message = Driver.just(model.content)
+        let image = Driver.just(model.media)
+            .map { $0.image() }
             .compactMap { $0 }
         let bookmarked = Driver.just(bookmarked)
         
-        let likeUsers = Driver.just(model.likes)
+        let likeUsers = Driver.just(model.liked)
+            .compactMap { $0 }
         
         return Output(
             profile: PostCellViewModel.Output.Profile(

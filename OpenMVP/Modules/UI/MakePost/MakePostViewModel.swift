@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxAlamofire
 
 final class MakePostViewModel: ViewModelType {
     struct Input {
@@ -45,6 +46,9 @@ final class MakePostViewModel: ViewModelType {
                 Log.debug(message)
                 Log.debug(image)
             })
+//            .flatMap { _ -> SharedSequence<DriverSharingStrategy, Void> in
+//                Api().request(by: .comments(.toPostById("1")), body: postAddComment).asDriverOnErrorJustComplete()
+//            }
             .mapToVoid() // request api
             .throttle(.seconds(5))
             .trackActivity(activityIndicator)

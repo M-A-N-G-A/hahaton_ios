@@ -23,7 +23,7 @@ final class ProfileViewModel: ViewModelType {
         let image: Driver<UIImage>
         let followers: Driver<Int?>
         let name: Driver<String>
-        let accuracy: Driver<Float?>
+        let accuracy: Driver<Int?>
         let description: Driver<String>
         
         let actions: Actions
@@ -33,21 +33,31 @@ final class ProfileViewModel: ViewModelType {
         }
     }
     
-    let navigator: ProfileNavigatorProtocol
+    private let navigator: ProfileNavigatorProtocol
+    private let api: Api
     
     init(navigator: ProfileNavigatorProtocol) {
         self.navigator = navigator
+        self.api = Api()
     }
     
     func transform(input: Input) -> Output {
         let fetchTrigger = input.willAppear
         let user = fetchTrigger
-            .map { User(userName: "Vasya", accuracy: 76, description: " это текст-рыба, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной рыбой для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.", email: "vasya@gmail.com", followers: 32, profileIcon: "VasyaIcon.png") } // Api call
+//            .flatMap { _ -> SharedSequence<DriverSharingStrategy, [User]> in
+//                self.api.requestArray(by: .users(.byName("investor1"))).asDriverOnErrorJustComplete()
+//            }
+            .map {
+                self.api.requestArray(by: .users(.byName("investor1")))
+            }
+            .debug()
+            .map { $0.first }
+            .compactMap { $0 }
         let image = user
-            .map { $0.profileIcon?.image() }
+            .map { $0.imageFile.image() }
             .compactMap { $0 }
         let followers = user
-            .map { $0.followers }
+            .map { $0.followers?.count }
         let name = user
             .map { $0.userName }
         let accuracy = user
