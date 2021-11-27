@@ -18,5 +18,6 @@ public enum AppLocalizator: String, Localizable {
     case numFollowers = "num-followers"
     case numTradeAccuracy = "num-trade-accuracy"
     case naTradeAccuracy = "na-trade-accuracy"
+    case publish = "publish"
 }
 

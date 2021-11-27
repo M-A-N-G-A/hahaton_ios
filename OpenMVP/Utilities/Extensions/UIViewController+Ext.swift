@@ -17,7 +17,7 @@ extension UIViewController {
         return UIApplication.shared.delegate as! AppDelegate
     }
     
-    var errorBinding: Binder<Error> {
+    var errorBinder: Binder<Error> {
         return Binder(self, binding: { (vc, error) in
             Log.debug(error)
             Log.error(error.localizedDescription)
@@ -30,7 +30,7 @@ extension UIViewController {
         })
     }
     
-    var messageBinding: Binder<String> {
+    var messageBinder: Binder<String> {
         return Binder(self, binding: { (vc, message) in
             PKHUD.sharedHUD.contentView = PKHUDErrorView(title: NSLocalizedString("error", comment: "Error"), subtitle: message)
             PKHUD.sharedHUD.show()
@@ -39,7 +39,7 @@ extension UIViewController {
         })
     }
     
-    var successBinding: Binder<Void> {
+    var successBinder: Binder<Void> {
         return Binder(self, binding: { (vc, _) in
             PKHUD.sharedHUD.contentView = PKHUDSuccessView()
             PKHUD.sharedHUD.show()
@@ -48,7 +48,7 @@ extension UIViewController {
         })
     }
     
-    var fetchingBinding: Binder<Bool> {
+    var fetchingBinder: Binder<Bool> {
         return Binder(self, binding: { (vc, valid) in
             if (valid == true) {
                 PKHUD.sharedHUD.contentView = PKHUDProgressView()

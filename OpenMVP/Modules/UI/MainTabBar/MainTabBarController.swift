@@ -16,6 +16,13 @@ class MainTabBarController: UITabBarController {
         return navigationVC
     }()
     
+    private lazy var makePostVC: UINavigationController = {
+        let vc = MakePostViewController()
+        let navigationVC = UINavigationController(rootViewController: vc)
+        vc.viewModel = MakePostViewModel(navigator: MakePostNavigator(navigationController: navigationVC))
+        return navigationVC
+    }()
+    
     private lazy var profileVC: UINavigationController = {
         let vc = ProfileViewController()
         let navigationVC = UINavigationController(rootViewController: vc)
@@ -28,6 +35,7 @@ class MainTabBarController: UITabBarController {
         
         let tabBarControllers = [
             homeVC,
+            makePostVC,
             profileVC
         ]
         tabBarControllers.forEach { // TODO: check if needed
