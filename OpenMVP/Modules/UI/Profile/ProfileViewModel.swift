@@ -26,6 +26,8 @@ final class ProfileViewModel: ViewModelType {
         let accuracy: Driver<String?>
         let description: Driver<String>
         
+        let posts: Driver<[Post]>
+        
         let actions: Actions
         struct Actions {
             let followTap: Driver<Void>
@@ -51,7 +53,6 @@ final class ProfileViewModel: ViewModelType {
                 }
                 return self.api.requestArray(by: .users(.byName(user.userName))).asDriverOnErrorJustComplete()
             }
-            .debug()
             .map { $0.first }
             .compactMap { $0 }
         let image = user
@@ -67,12 +68,26 @@ final class ProfileViewModel: ViewModelType {
             .map { $0.description }
             .compactMap { $0 }
         
+        let posts = fetchTrigger
+            .asObservable()
+            .flatMap { _ -> Observable<[Post]> in
+                let currentUserResult: Result<User, Error> = AppUserDefaults.currentUser.get()
+                guard case let .success(user) = currentUserResult else {
+                    return Observable.just([])
+                }
+                return self.api.requestArray(by: .posts(.byName(user.userName)))
+            }
+            .debug()
+            .asDriverOnErrorJustComplete()
+        
         return Output(
             image: image,
             followers: followers,
             name: name,
             accuracy: accuracy,
             description: description,
+            
+            posts: posts,
             
             actions: ProfileViewModel.Output.Actions(
                 followTap: input.actions.followTap,

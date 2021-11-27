@@ -20,7 +20,18 @@ final class ProfileViewController: UIViewController {
     
     private lazy var additionsContainerView = UIView()
     
-    private lazy var additionsViewController = ProfileAdditionsViewController()
+    private lazy var postsTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(PostTableViewCell.self)
+        return tableView
+    }()
+    
+    let cellProfileTapSubject = PublishSubject<Post>()
+    let cellFollowTapSubject = PublishSubject<Post>()
+    let cellLikeTapSubject = PublishSubject<Post>()
+    let cellMessageTapSubject = PublishSubject<Post>()
+    let cellShareTapSubject = PublishSubject<Post>()
+    let cellBookmarkTapSubject = PublishSubject<Post>()
     
     private let disposeBag = DisposeBag()
     
@@ -42,7 +53,7 @@ private extension ProfileViewController {
         view.backgroundColor = .white
         [
             containerView,
-            additionsContainerView
+            postsTableView
         ]
         .forEach { view.addSubview($0) }
         [
@@ -51,9 +62,6 @@ private extension ProfileViewController {
         ]
         .forEach { containerView.addSubview($0) }
         
-        addChild(additionsViewController)
-        additionsContainerView.addSubview(additionsViewController.view)
-        additionsViewController.didMove(toParent: self)
     }
     
     func makeSubviewsLayout() {
@@ -68,12 +76,9 @@ private extension ProfileViewController {
             make.top.equalTo(summaryView.snp.bottom).offset(8)
             make.left.right.bottom.equalToSuperview()
         }
-        additionsContainerView.snp.makeConstraints { make in
-            make.top.equalTo(containerView.snp.bottom).offset(8)
+        postsTableView.snp.makeConstraints { make in
+            make.top.equalTo(actionsView.snp.bottom).offset(8)
             make.left.right.bottom.equalToSuperview()
-        }
-        additionsViewController.view.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
         }
     }
 }
@@ -93,6 +98,42 @@ private extension ProfileViewController {
         )
         
         let output = viewModel.transform(input: input)
+        
+        postsTableView.rx.setDelegate(self).disposed(by: disposeBag)
+        output.posts.asObservable()
+            .bind(to: postsTableView.rx
+                    .items(cellIdentifier: Utilities.classNameAsString(obj: PostTableViewCell.self),
+                           cellType: PostTableViewCell.self)) { row, post, cell in
+                cell.configure { input in
+                    let vm = PostTableViewCellViewModel(model: post, bookmarked: false)
+                    input.profileTap
+                        .map { post }
+                        .drive(self.cellProfileTapSubject)
+                        .disposed(by: cell.disposeBag)
+                    input.followTap
+                        .map { post }
+                        .drive(self.cellFollowTapSubject)
+                        .disposed(by: cell.disposeBag)
+                    input.likeTap
+                        .map { post }
+                        .drive(self.cellLikeTapSubject)
+                        .disposed(by: cell.disposeBag)
+                    input.messageTap
+                        .map { post }
+                        .drive(self.cellMessageTapSubject)
+                        .disposed(by: cell.disposeBag)
+                    input.shareTap
+                        .map { post }
+                        .drive(self.cellShareTapSubject)
+                        .disposed(by: cell.disposeBag)
+                    input.bookmarkTap
+                        .map { post }
+                        .drive(self.cellBookmarkTapSubject)
+                        .disposed(by: cell.disposeBag)
+                    return vm
+                }
+            }
+            .disposed(by: disposeBag)
         
         [
             output.name.drive(summaryView.nameLabel.rx.text),
@@ -119,5 +160,12 @@ extension ProfileViewController: TabBarControllerProtocol {
     
     func setupTabBarSettings() {
         self.title = tabBarTitle
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension ProfileViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
     }
 }

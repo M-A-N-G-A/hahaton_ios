@@ -19,12 +19,12 @@ struct Post: Codable {
     let media: String
 
     enum CodingKeys: String, CodingKey {
-        case comments = "comments"
+        case comments = "comments_test"
         case datePosted = "date_posted"
-        case notifs = "notifs"
-        case user = "us"
+        case notifs = "notifs_test"
+        case user = "user"
         case userID = "user_id"
-        case liked = "liked"
+        case liked = "liked_test"
         case content = "content"
         case media = "media"
     }

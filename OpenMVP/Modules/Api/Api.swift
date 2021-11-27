@@ -80,6 +80,12 @@ struct Api {
         return route
     }
     
+    private func jsonDecoder() -> JSONDecoder {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }
+    
     /// get
     func request<ResultType: Codable>(by route: Routes) -> Observable<ResultType> {
         return Observable.create { observer in
@@ -95,7 +101,7 @@ struct Api {
                 }
                 guard let data = data else { return }
                 do {
-                    let result = try JSONDecoder().decode(ResultType.self, from: data)
+                    let result = try jsonDecoder().decode(ResultType.self, from: data)
                     observer.onNext(result)
                     observer.onCompleted()
                 } catch {
@@ -122,7 +128,7 @@ struct Api {
                 }
                 guard let data = data else { return }
                 do {
-                    let result = try JSONDecoder().decode([ResultType].self, from: data)
+                    let result = try jsonDecoder().decode([ResultType].self, from: data)
                     observer.onNext(result)
                     observer.onCompleted()
                 } catch {
@@ -160,7 +166,7 @@ struct Api {
                 }
                 guard let data = data else { return }
                 do {
-                    let result = try JSONDecoder().decode(ResultType.self, from: data)
+                    let result = try jsonDecoder().decode(ResultType.self, from: data)
                     
                     observer.onNext(result)
                     observer.onCompleted()
