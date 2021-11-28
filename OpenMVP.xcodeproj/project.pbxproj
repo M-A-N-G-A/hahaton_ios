@@ -76,6 +76,7 @@
 		18527714275355FD00CCE9E7 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18527713275355FD00CCE9E7 /* PostViewController.swift */; };
 		185277162753562000CCE9E7 /* PostStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 185277152753562000CCE9E7 /* PostStoryboard.storyboard */; };
 		1852771827536A2200CCE9E7 /* PostCreateBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852771727536A2200CCE9E7 /* PostCreateBody.swift */; };
+		1852771A2753788B00CCE9E7 /* FollowCreateBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185277192753788B00CCE9E7 /* FollowCreateBody.swift */; };
 		3D95B4449EE07E85DCE1D7C8 /* Pods_OpenMVP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E23DD3C8031D89E10A3F49AF /* Pods_OpenMVP.framework */; };
 /* End PBXBuildFile section */
 
@@ -153,6 +154,7 @@
 		18527713275355FD00CCE9E7 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		185277152753562000CCE9E7 /* PostStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostStoryboard.storyboard; sourceTree = "<group>"; };
 		1852771727536A2200CCE9E7 /* PostCreateBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreateBody.swift; sourceTree = "<group>"; };
+		185277192753788B00CCE9E7 /* FollowCreateBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCreateBody.swift; sourceTree = "<group>"; };
 		2830A8507997842050F51C09 /* Pods-OpenMVP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMVP.release.xcconfig"; path = "Target Support Files/Pods-OpenMVP/Pods-OpenMVP.release.xcconfig"; sourceTree = "<group>"; };
 		AC8EC55BC1A626051EE41E08 /* Pods-OpenMVP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMVP.debug.xcconfig"; path = "Target Support Files/Pods-OpenMVP/Pods-OpenMVP.debug.xcconfig"; sourceTree = "<group>"; };
 		E23DD3C8031D89E10A3F49AF /* Pods_OpenMVP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenMVP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -372,6 +374,7 @@
 				185276E32752713800CCE9E7 /* PostAddComment.swift */,
 				185276FC2752A66900CCE9E7 /* LoginPostBody.swift */,
 				1852771727536A2200CCE9E7 /* PostCreateBody.swift */,
+				185277192753788B00CCE9E7 /* FollowCreateBody.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -694,6 +697,7 @@
 				185276A0275172B200CCE9E7 /* UIColor+Ext.swift in Sources */,
 				185276FD2752A66900CCE9E7 /* LoginPostBody.swift in Sources */,
 				185276902751694C00CCE9E7 /* User.swift in Sources */,
+				1852771A2753788B00CCE9E7 /* FollowCreateBody.swift in Sources */,
 				185277072752BDB200CCE9E7 /* PostTableViewCell.swift in Sources */,
 				185276D32751D7AE00CCE9E7 /* ErrorTracker.swift in Sources */,
 				1852770F2753311500CCE9E7 /* EditProfileViewController.swift in Sources */,

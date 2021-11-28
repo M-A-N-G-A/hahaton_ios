@@ -15,6 +15,18 @@ protocol RoutePath {
 struct Api {
     enum Routes: RoutePath {
         
+        case recomendations(Recomendations)
+        enum Recomendations: RoutePath {
+            case toPostByName(String)
+            
+            var path: String {
+                switch self {
+                case let .toPostByName(username):
+                    return "" + username
+                }
+            }
+        }
+        
         case followed(Followed)
         enum Followed: RoutePath {
             /// get: username: String
@@ -23,7 +35,7 @@ struct Api {
             var path: String {
                 switch self {
                 case let .posts(username):
-                    return "" + username
+                    return "posts/" + username
                 }
             }
         }
@@ -84,6 +96,8 @@ struct Api {
         
         var path: String {
             switch self {
+            case let .recomendations(recomendations):
+                return "recomendations/" + recomendations.path
             case let .followed(followed):
                 return "followed/" + followed.path
             case .login:

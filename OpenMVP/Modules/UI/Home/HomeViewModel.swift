@@ -72,7 +72,8 @@ final class HomeViewModel: ViewModelType {
                 guard case let .success(user) = currentUserResult else {
                     return Observable.just([])
                 }
-                return self.api.requestArray(by: .posts(.byName(user.userName)))
+//                return self.api.requestArray(by: .posts(.byName(user.userName)))
+                return self.api.requestArray(by: .followed(.posts(user.userName)))
             }
             .map { posts -> [HomeCellSectionModel] in
                 var dataSource: [HomeCellSectionModel] = []
@@ -85,8 +86,9 @@ final class HomeViewModel: ViewModelType {
             .do(onNext: { posts in
                 self.dataSource = posts
             })
-            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
-            .observeOn(MainScheduler.instance)
+            .debug()
+//            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
+//            .observeOn(MainScheduler.instance)
             .asDriverOnErrorJustComplete()
         
         let indexSelected = input.cellActions.indexSelected
@@ -100,10 +102,13 @@ final class HomeViewModel: ViewModelType {
                 case let .postSectionItem(post: post):
                     self.navigator.pushPost(with: post)
                 }
-//                self.dataSource[1].items.
-//                let post: Post = self.dataSource[1].items[indexPath.item]
-//                self.navigator.pushPost(with: dataSource[])
             })
+        
+//        let followTap = input.cellActions
+//            .followTap
+//            .do(onNext: { post in
+//                self.api.request(by: , body: <#T##Decodable & Encodable#>)
+//            })
         
         return Output(
             dataSource: dataSource,

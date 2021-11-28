@@ -40,6 +40,8 @@ final class PostCellViewModel: ViewModelType {
         let messageTap: Driver<Void>
         let shareTap: Driver<Void>
         let bookmarkTap: Driver<Void>
+        
+//        let imageHeight: Driver<CGFloat>
     }
         
     let model: Post
@@ -57,8 +59,8 @@ final class PostCellViewModel: ViewModelType {
             .flatMap { imageName -> Observable<UIImage> in
                 Api().requestImage(by: imageName)
             }
-            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
-            .observeOn(MainScheduler.instance)
+//            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
+//            .observeOn(MainScheduler.instance)
             .asDriverOnErrorJustComplete()
         let profileName = Driver.just(model.user?.userName)
             .compactMap { $0 }
@@ -69,13 +71,19 @@ final class PostCellViewModel: ViewModelType {
         let message = Driver.just(model.content)
             .compactMap { $0 }
         let image = Driver.just(model.media)
+            .asObservable()
             .compactMap { $0 }
-            .map { $0.image() }
-            .compactMap { $0 }
+            .flatMap { fileName -> Observable<UIImage> in
+                Api().requestImage(by: fileName)
+            }
+            .asDriverOnErrorJustComplete()
         let bookmarked = Driver.just(bookmarked)
         
         let likeUsers = Driver.just(model.liked)
             .compactMap { $0 }
+        
+//        let imageHeight = image
+//            .map { $0.size.height }
         
         return Output(
             profile: PostCellViewModel.Output.Profile(
@@ -96,6 +104,8 @@ final class PostCellViewModel: ViewModelType {
             messageTap: input.messageTap,
             shareTap: input.shareTap,
             bookmarkTap: input.bookmarkTap
+            
+//            imageHeight: imageHeight
         )
     }
 }

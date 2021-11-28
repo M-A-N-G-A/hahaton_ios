@@ -9,6 +9,9 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+// shit
+//static var loadedImages
+
 extension Api {
     /// get
     func request<ResultType: Codable>(by route: Routes) -> Observable<ResultType> {

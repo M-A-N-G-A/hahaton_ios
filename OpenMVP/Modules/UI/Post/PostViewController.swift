@@ -50,7 +50,9 @@ final class PostViewController: UIViewController {
             Api()._requestImage(by: profileImage) { result in
                 switch result {
                 case let .success(image):
-                    self._profileView.imageView.image = image
+                    DispatchQueue.main.sync {
+                        self._profileView.imageView.image = image
+                    }
                 case let .failure(error):
                     Log.debug(error)
                     Log.debug("nothing doing")
@@ -65,7 +67,9 @@ final class PostViewController: UIViewController {
         Api()._requestImage(by: imageName) { result in
             switch result {
             case let .success(image):
-                self.imageView.image = image
+                DispatchQueue.main.sync {
+                    self.imageView.image = image
+                }
             case let .failure(error):
                 Log.debug(error)
                 Log.debug("nothing doing")

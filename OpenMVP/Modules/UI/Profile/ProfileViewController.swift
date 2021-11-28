@@ -52,6 +52,7 @@ final class ProfileViewController: UIViewController {
 // MARK: - Setup UI
 private extension ProfileViewController {
     func setupUI() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open finance account", style: .plain, target: self, action: #selector(openBtn(_:)))
         view.backgroundColor = .white
         [
             containerView,
@@ -83,6 +84,13 @@ private extension ProfileViewController {
             make.left.right.bottom.equalToSuperview()
         }
     }
+    
+    @objc func openBtn(_ sender: UIButton) {
+        if let url = URL(string: "https://open-broker.ru/dos/") {
+            UIApplication.shared.open(url)
+        }
+    }
+    
 }
 
 // MARK: - Setup Bindings

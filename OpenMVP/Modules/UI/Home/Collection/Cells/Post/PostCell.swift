@@ -87,6 +87,7 @@ private extension PostCell {
         imageView.snp.makeConstraints { make in
             make.top.equalTo(messageLabel.snp.bottom).offset(4)
             make.left.right.equalToSuperview()
+            make.height.lessThanOrEqualTo(400)
         }
         actionsView.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(16)
@@ -131,8 +132,20 @@ extension PostCell {
             output.likeTap.drive(),
             output.messageTap.drive(),
             output.shareTap.drive(),
-            output.bookmarkTap.drive(),
+            output.bookmarkTap.drive()//,
+            
+//            output.imageHeight.drive(imageHeightBinder)
         ]
         .forEach { $0.disposed(by: disposeBag) }
     }
 }
+//
+//extension PostCell {
+//    var imageHeightBinder: Binder<CGFloat> {
+//        Binder(self) { view, height in
+//            view.imageView.snp.updateConstraints { update in
+//                update.height.lessThanOrEqualTo(height)
+//            }
+//        }
+//    }
+//}

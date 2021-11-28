@@ -61,8 +61,8 @@ final class PostTableViewCellViewModel: ViewModelType {
             .flatMap { imageName -> Observable<UIImage> in
                 Api().requestImage(by: imageName)
             }
-            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
-            .observeOn(MainScheduler.instance)
+//            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
+//            .observeOn(MainScheduler.instance)
             .asDriverOnErrorJustComplete()
         let profileName = Driver.just(model.user?.userName)
             .compactMap { $0 }
@@ -78,8 +78,8 @@ final class PostTableViewCellViewModel: ViewModelType {
             .flatMap { imageName -> Observable<UIImage> in
                 Api().requestImage(by: imageName)
             }
-            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
-            .observeOn(MainScheduler.instance)
+//            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
+//            .observeOn(MainScheduler.instance)
             .asDriverOnErrorJustComplete()
         let bookmarked = Driver.just(bookmarked)
         

@@ -81,8 +81,8 @@ final class MakePostViewModel: ViewModelType {
             .asObservable()
             .flatMap { self.importImage() }
             .map { image in RemovableImageView.State.imageSelected(image) }
-            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
-            .observeOn(MainScheduler.instance)
+//            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
+//            .observeOn(MainScheduler.instance)
             .asDriverOnErrorJustComplete()
         
         let deleteState = input.deleteTap
