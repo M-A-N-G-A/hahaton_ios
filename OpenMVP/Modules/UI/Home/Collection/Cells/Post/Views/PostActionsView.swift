@@ -94,4 +94,25 @@ extension PostActionsView {
             view.bookmarkBtn.setImage(image?.withRenderingMode(.alwaysTemplate), for: .normal)
         }
     }
+    
+    var userStateBinder: Binder<ProfileViewModel.State> {
+        Binder(self) { view, state in
+            view.hStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+            switch state {
+            case .me:
+                [
+                    view.shareBtn
+                ]
+                .forEach { view.hStackView.addArrangedSubview($0) }
+            case .other(_):
+                [
+                    view.likeBtn,
+                    view.messageBtn,
+                    view.shareBtn
+                ]
+                .forEach { view.hStackView.addArrangedSubview($0) }
+            }
+        }
+    }
 }
+

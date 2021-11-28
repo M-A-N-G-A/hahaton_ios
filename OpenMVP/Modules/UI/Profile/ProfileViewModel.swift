@@ -30,7 +30,7 @@ final class ProfileViewModel: ViewModelType {
         let image: Driver<UIImage>
         let followers: Driver<Int?>
         let name: Driver<String>
-        let accuracy: Driver<String?>
+        let accuracy: Driver<Int?>
         let description: Driver<String>
         
         let stateForView: Driver<State>
@@ -48,7 +48,7 @@ final class ProfileViewModel: ViewModelType {
     private let navigator: ProfileNavigatorProtocol
     private let api: Api
     
-    private let state: State
+    let state: State
     
     init(navigator: ProfileNavigatorProtocol, state: State) {
         self.navigator = navigator
@@ -59,22 +59,23 @@ final class ProfileViewModel: ViewModelType {
     func transform(input: Input) -> Output {
         let fetchTrigger = input.willAppear
         let user = fetchTrigger
-            .flatMap { _ -> SharedSequence<DriverSharingStrategy, [User]> in
+            .asObservable()
+            .flatMap { _ -> Observable<User?> in
                 var userName: String
                 switch self.state {
                 case .me:
                     let currentUserResult: Result<User, Error> = AppUserDefaults.currentUser.get()
                     guard case let .success(user) = currentUserResult else {
-                        return Driver.just([])
+                        return .just(nil)
                     }
                     userName = user.userName
                 case let .other(otherUser):
                     userName = otherUser.userName
                 }
-                return self.api.requestArray(by: .users(.byName(userName))).asDriverOnErrorJustComplete()
+                return self.api.request(by: .users(.byName(userName)))
             }
-            .map { $0.first }
             .compactMap { $0 }
+            .asDriverOnErrorJustComplete()
         let image = user
             .asObservable()
             .map { $0.imageFile }

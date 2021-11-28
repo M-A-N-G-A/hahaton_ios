@@ -58,10 +58,13 @@ final class PostCellViewModel: ViewModelType {
         let profileName = Driver.just(model.user?.userName)
             .compactMap { $0 }
         let time = Driver.just(model.datePosted)
+            .compactMap { $0 }
             .map { self.prepare(time: $0) }
         
         let message = Driver.just(model.content)
+            .compactMap { $0 }
         let image = Driver.just(model.media)
+            .compactMap { $0 }
             .map { $0.image() }
             .compactMap { $0 }
         let bookmarked = Driver.just(bookmarked)

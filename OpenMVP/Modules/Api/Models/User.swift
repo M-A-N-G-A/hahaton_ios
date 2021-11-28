@@ -9,14 +9,16 @@ import UIKit
 
 struct User: Codable {
     let id = UUID()
+    let uid: Int
     let userName: String
-    let accuracy: String?
+    let accuracy: Int?
     let description: String?
     let email: String
     let imageFile: String
     let followers: [User]? // check it
 
     enum CodingKeys: String, CodingKey {
+        case uid = "uid"
         case userName = "username"
         case accuracy = "accuracy"
         case description = "description"

@@ -18,6 +18,7 @@ final class PostTableViewCell: UITableViewCell {
     
     private lazy var messageLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         // TODO: design
         return label
     }()
@@ -131,7 +132,24 @@ extension PostTableViewCell {
             output.messageTap.drive(),
             output.shareTap.drive(),
             output.bookmarkTap.drive(),
+            
+            output.profileState.drive(actionsView.userStateBinder),
+            output.profileState.drive(userStateBinder),
         ]
         .forEach { $0.disposed(by: disposeBag) }
+    }
+}
+
+// MARK: - Rx Binders
+extension PostTableViewCell {
+    var userStateBinder: Binder<ProfileViewModel.State> {
+        Binder(self) { view, state in
+            switch state {
+            case .me:
+                view.userProfileView.followBtn.isHidden = true
+            case .other(_):
+                view.userProfileView.followBtn.isHidden = false
+            }
+        }
     }
 }

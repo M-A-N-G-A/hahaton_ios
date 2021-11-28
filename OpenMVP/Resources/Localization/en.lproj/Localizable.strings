@@ -13,7 +13,7 @@
 "liked-by-persons" = "Liked by %d";
 "message" = "Message";
 "num-followers" = "%d\nFollowers";
-"num-trade-accuracy" = "%@\nTrade\nAccuracy";
+"num-trade-accuracy" = "%d\nTrade\nAccuracy";
 "na-trade-accuracy" = "N/A\nTrade\nAccuracy";
 "publish" = "Publish";
 "edit-profile" = "Edit profile";

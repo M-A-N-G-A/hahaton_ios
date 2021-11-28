@@ -77,7 +77,7 @@ private extension ProfileViewController {
             make.left.right.bottom.equalToSuperview()
         }
         postsTableView.snp.makeConstraints { make in
-            make.top.equalTo(actionsView.snp.bottom).offset(8)
+            make.top.equalTo(containerView.snp.bottom).offset(8)
             make.left.right.bottom.equalToSuperview()
         }
     }
@@ -101,12 +101,21 @@ private extension ProfileViewController {
         let output = viewModel.transform(input: input)
         
         postsTableView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+//        postsTableView.rx.modelSelected(Post.self).subscribe(onNext: { item in
+//
+//        }).disposed(by: disposeBag)
+        
+        postsTableView.rx.itemSelected.subscribe(onNext: { index in
+            self.postsTableView.deselectRow(at: index, animated: true)
+        }).disposed(by: disposeBag)
+        
         output.posts.asObservable()
             .bind(to: postsTableView.rx
                     .items(cellIdentifier: Utilities.classNameAsString(obj: PostTableViewCell.self),
                            cellType: PostTableViewCell.self)) { row, post, cell in
                 cell.configure { input in
-                    let vm = PostTableViewCellViewModel(model: post, bookmarked: false)
+                    let vm = PostTableViewCellViewModel(model: post, bookmarked: false, profileState: self.viewModel.state)
                     input.profileTap
                         .map { post }
                         .drive(self.cellProfileTapSubject)
@@ -180,6 +189,6 @@ extension ProfileViewController: TabBarControllerProtocol {
 // MARK: - UITableViewDelegate
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        UITableView.automaticDimension
+        CGFloat(400)
     }
 }

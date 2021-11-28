@@ -10,36 +10,44 @@ import Foundation
 struct Post: Codable {
     let id = UUID()
     let comments: [String]?
-    let datePosted: Date
+    let datePosted: Date?
     let notifs: [String]?
     let user: User?
-    let userID: String?
+    let userID: Int?
     let liked: [User]?
     let content: String
-    let media: String
+    let media: String?
 
     enum CodingKeys: String, CodingKey {
-        case comments = "comments_test"
+        case comments = "comments"
         case datePosted = "date_posted"
-        case notifs = "notifs_test"
+        case notifs = "notifs"
         case user = "user"
         case userID = "user_id"
-        case liked = "liked_test"
+        case liked = "liked"
         case content = "content"
         case media = "media"
     }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        comments = try values.decode([String]?.self, forKey: .comments)
+        let dateString = try values.decode(String.self, forKey: .datePosted)
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "yyyy-MM-ddTHH:mm:ss.SSS"
+        dateFormat.date(from: dateString)
+        Log.debug(dateString)
+        Log.debug(dateFormat.date(from: dateString))
+        datePosted = dateFormat.date(from: dateString)
+        notifs = try values.decode([String]?.self, forKey: .notifs)
+        liked = try values.decode([User]?.self, forKey: .liked)
+//        user = try values.decode(User?.self, forKey: .user)
+        user = nil
+        userID = try values.decode(Int?.self, forKey: .userID)
+        content = try values.decode(String.self, forKey: .content)
+        media = try values.decode(String?.self, forKey: .media)
+        }
 }
-
-//struct Post {
-//    let id: String = UUID().uuidString
-//    let creator: User
-//    let message: String
-//    let image: String?
-//    let views: Int
-//    let time: Date
-//    let likes: [User]
-//    let messages: [Message]
-//}
 
 extension Post: Equatable {
     static func == (lhs: Post, rhs: Post) -> Bool {

@@ -40,14 +40,18 @@ final class PostTableViewCellViewModel: ViewModelType {
         let messageTap: Driver<Void>
         let shareTap: Driver<Void>
         let bookmarkTap: Driver<Void>
+        
+        let profileState: Driver<ProfileViewModel.State>
     }
         
     let model: Post
     let bookmarked: Bool
+    let profileState: ProfileViewModel.State
     
-    init(model: Post, bookmarked: Bool) {
+    init(model: Post, bookmarked: Bool, profileState: ProfileViewModel.State) {
         self.model = model
         self.bookmarked = bookmarked
+        self.profileState = profileState
     }
     
     func transform(input: Input) -> Output {
@@ -58,12 +62,20 @@ final class PostTableViewCellViewModel: ViewModelType {
         let profileName = Driver.just(model.user?.userName)
             .compactMap { $0 }
         let time = Driver.just(model.datePosted)
+            .compactMap { $0 }
             .map { self.prepare(time: $0) }
         
         let message = Driver.just(model.content)
-        let image = Driver.just(model.media)
-            .map { $0.image() }
             .compactMap { $0 }
+        let image = Driver.just(model.media)
+            .compactMap { $0 }
+            .asObservable()
+            .flatMap { imageName -> Observable<UIImage> in
+                Api().requestImage(by: imageName)
+            }
+            .debug()
+            .compactMap { $0 }
+            .asDriverOnErrorJustComplete()
         let bookmarked = Driver.just(bookmarked)
         
         let likeUsers = Driver.just(model.liked)
@@ -87,7 +99,9 @@ final class PostTableViewCellViewModel: ViewModelType {
             likeTap: input.likeTap,
             messageTap: input.messageTap,
             shareTap: input.shareTap,
-            bookmarkTap: input.bookmarkTap
+            bookmarkTap: input.bookmarkTap,
+            
+            profileState: Driver.just(self.profileState)
         )
     }
 }
