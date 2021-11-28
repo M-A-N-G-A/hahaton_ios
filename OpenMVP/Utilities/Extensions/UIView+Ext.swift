@@ -11,4 +11,11 @@ extension UIView {
     func add(subviews: UIView...) {
         subviews.forEach { addSubview($0) }
     }
+    
+    func addAndFill(_ view: UIView) {
+        addSubview(view)
+        view.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
 }

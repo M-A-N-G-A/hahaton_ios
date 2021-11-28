@@ -165,4 +165,23 @@ extension Api {
             return Disposables.create()
         }
     }
+    
+    func _requestImage(by fileName: String, complete: @escaping (Result<UIImage, Error>) -> Void) {
+        guard let url = URL(string: makeImagePath(name: fileName)) else {
+            complete(.failure(Errors.urlIsNil))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                complete(.failure(error))
+            }
+            guard let data = data,
+                  let image = UIImage(data: data) else {
+                complete(.failure(Errors.decodeFail))
+                return
+            }
+            complete(.success(image))
+        }.resume()
+    }
 }

@@ -8,7 +8,7 @@
 import UIKit.UINavigationController
 
 protocol HomeNavigatorProtocol {
-    
+    func pushPost(with post: Post)
 }
 
 final class HomeNavigator {
@@ -20,5 +20,10 @@ final class HomeNavigator {
 }
 
 extension HomeNavigator: HomeNavigatorProtocol {
-    
+    func pushPost(with post: Post) {
+        let vc: PostViewController = PostViewController.instantiate(appStoryboard: .post)
+//        vc.setup(post)
+        vc.post = post
+        navigationController.pushViewController(vc, animated: true)
+    }
 }

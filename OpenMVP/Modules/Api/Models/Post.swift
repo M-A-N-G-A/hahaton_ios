@@ -22,7 +22,7 @@ struct Post: Codable {
         case comments = "comments"
         case datePosted = "date_posted"
         case notifs = "notifs"
-        case user = "user"
+        case user = "user_info"
         case userID = "user_id"
         case liked = "liked"
         case content = "content"

@@ -136,6 +136,14 @@ private extension HomeViewController {
     func setupBindings() {
         guard let viewModel = viewModel else { return }
         
+        let selectIndex = collectionView.rx
+            .itemSelected
+            .asDriver()
+        
+//        let selectModel = collectionView.rx
+//            .modelSelected(Post.self)
+//            .asDriver()
+        
         let input = HomeViewModel.Input(
             willAppear: rx.viewWillAppear.asDriver(),
             
@@ -145,7 +153,9 @@ private extension HomeViewController {
                 likeTap: cellLikeTapSubject.asDriverOnErrorJustComplete(),
                 messageTap: cellMessageTapSubject.asDriverOnErrorJustComplete(),
                 shareTap: cellShareTapSubject.asDriverOnErrorJustComplete(),
-                bookmarkTap: cellBookmarkTapSubject.asDriverOnErrorJustComplete()
+                bookmarkTap: cellBookmarkTapSubject.asDriverOnErrorJustComplete(),
+                
+                indexSelected: selectIndex
             )
         )
         
@@ -162,7 +172,9 @@ private extension HomeViewController {
             output.cellActions.likeTap.drive(),
             output.cellActions.messageTap.drive(),
             output.cellActions.shareTap.drive(),
-            output.cellActions.bookmarkTap.drive()
+            output.cellActions.bookmarkTap.drive(),
+            
+            output.cellActions.indexSelected.drive()
         ]
         .forEach { $0.disposed(by: disposeBag) }
     }
@@ -182,16 +194,6 @@ extension HomeViewController: TabBarControllerProtocol {
         self.title = tabBarTitle
     }
 }
-
-// MARK: - UICollectionViewDelegateFlowLayout
-//extension HomeViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        guard let viewModel = viewModel else {
-//            return indexPath.section == 0 ? ShareCell.Constants.size
-//        }
-//        return ShareCell.calculateLayoutSize(of: viewModel.dataSource[indexPath.row])
-//    }
-//}
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension HomeViewController: UICollectionViewDelegateFlowLayout {

@@ -22,6 +22,8 @@ final class HomeViewModel: ViewModelType {
             let messageTap: Driver<Post>
             let shareTap: Driver<Post>
             let bookmarkTap: Driver<Post>
+            
+            let indexSelected: Driver<IndexPath>
         }
     }
     struct Output {
@@ -36,6 +38,8 @@ final class HomeViewModel: ViewModelType {
             let messageTap: Driver<Post>
             let shareTap: Driver<Post>
             let bookmarkTap: Driver<Post>
+            
+            let indexSelected: Driver<IndexPath>
         }
     }
     
@@ -45,19 +49,6 @@ final class HomeViewModel: ViewModelType {
         Stock(title: "Tesla", icon: "Tesla.icon", description: "Tesla stock is stock", value: 1348)
     ]
     
-//    let posts = [
-//        Post(comments: [], datePosted: Date(), notifs: [], user: User(userName: "Vasya", accuracy: "33", description: "Nope", email: "nope", imageFile: "nope", followers: []), userID: "nope", liked: [], content: "nope", media: "nope"),
-//        Post(comments: [], datePosted: Date(), notifs: [], user: User(userName: "Vasya", accuracy: "33", description: "Nope", email: "nope", imageFile: "nope", followers: []), userID: "nope", liked: [], content: "nope", media: "nope"),
-//        Post(comments: [], datePosted: Date(), notifs: [], user: User(userName: "Vasya", accuracy: "33", description: "Nope", email: "nope", imageFile: "nope", followers: []), userID: "nope", liked: [], content: "nope", media: "nope"),
-//        Post(comments: [], datePosted: Date(), notifs: [], user: User(userName: "Vasya", accuracy: "33", description: "Nope", email: "nope", imageFile: "nope", followers: []), userID: "nope", liked: [], content: "nope", media: "nope"),
-//        Post(comments: [], datePosted: Date(), notifs: [], user: User(userName: "Vasya", accuracy: "33", description: "Nope", email: "nope", imageFile: "nope", followers: []), userID: "nope", liked: [], content: "nope", media: "nope"),
-//        Post(comments: [], datePosted: Date(), notifs: [], user: User(userName: "Vasya", accuracy: "33", description: "Nope", email: "nope", imageFile: "nope", followers: []), userID: "nope", liked: [], content: "nope", media: "nope"),
-//        Post(comments: [], datePosted: Date(), notifs: [], user: User(userName: "Vasya", accuracy: "33", description: "Nope", email: "nope", imageFile: "nope", followers: []), userID: "nope", liked: [], content: "nope", media: "nope"),
-//        Post(comments: [], datePosted: Date(), notifs: [], user: User(userName: "Vasya", accuracy: "33", description: "Nope", email: "nope", imageFile: "nope", followers: []), userID: "nope", liked: [], content: "nope", media: "nope"),
-//        Post(comments: [], datePosted: Date(), notifs: [], user: User(userName: "Vasya", accuracy: "33", description: "Nope", email: "nope", imageFile: "nope", followers: []), userID: "nope", liked: [], content: "nope", media: "nope"),
-//        Post(comments: [], datePosted: Date(), notifs: [], user: User(userName: "Vasya", accuracy: "33", description: "Nope", email: "nope", imageFile: "nope", followers: []), userID: "nope", liked: [], content: "nope", media: "nope")
-//    ]
-    
     let navigator: HomeNavigatorProtocol
     let api: Api
     
@@ -65,6 +56,8 @@ final class HomeViewModel: ViewModelType {
         self.navigator = navigator
         self.api = Api()
     }
+    
+    private var dataSource: [HomeCellSectionModel] = []
     
     func transform(input: Input) -> Output {
         
@@ -89,7 +82,26 @@ final class HomeViewModel: ViewModelType {
                 dataSource.append(.postSection(items: posts.map { HomeCellSectionItem.postSectionItem(post: $0) }))
                 return dataSource
             }
+            .do(onNext: { posts in
+                self.dataSource = posts
+            })
             .asDriverOnErrorJustComplete()
+        
+        let indexSelected = input.cellActions.indexSelected
+            .do(onNext: { indexPath in
+//                Log.debug(self.dataSource)
+                guard indexPath.section == 1 else { return }
+                let postItems = self.dataSource[1].items
+                switch postItems[indexPath.item] {
+                case .stockSectionItem(stock: _):
+                    Log.debug("nothing")
+                case let .postSectionItem(post: post):
+                    self.navigator.pushPost(with: post)
+                }
+//                self.dataSource[1].items.
+//                let post: Post = self.dataSource[1].items[indexPath.item]
+//                self.navigator.pushPost(with: dataSource[])
+            })
         
         return Output(
             dataSource: dataSource,
@@ -100,7 +112,10 @@ final class HomeViewModel: ViewModelType {
                 likeTap: input.cellActions.likeTap,
                 messageTap: input.cellActions.messageTap,
                 shareTap: input.cellActions.shareTap,
-                bookmarkTap: input.cellActions.bookmarkTap)
+                bookmarkTap: input.cellActions.bookmarkTap,
+            
+                indexSelected: indexSelected
+            )
         )
     }
 }
