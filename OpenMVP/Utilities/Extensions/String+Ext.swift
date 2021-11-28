@@ -17,4 +17,19 @@ extension String {
         }
     }
     
+    func addQuery(field: String, value: String) -> Self {
+        guard self.contains("?") else {
+            return self + "?" + field + "=" + value
+        }
+        return self + "&" + field + "=" + value
+    }
+    
+    func addQuery(field: String, value: Any?) -> Self {
+        guard let value = value else { return self }
+        guard self.contains("?") else {
+            return self + "?" + field + "=" + String(describing: value)
+        }
+        return self + "&" + field + "=" + String(describing: value)
+    }
+    
 }

@@ -59,9 +59,11 @@ final class HomeViewModel: ViewModelType {
 //    ]
     
     let navigator: HomeNavigatorProtocol
+    let api: Api
     
     init(navigator: HomeNavigatorProtocol) {
         self.navigator = navigator
+        self.api = Api()
     }
     
     func transform(input: Input) -> Output {
@@ -71,17 +73,23 @@ final class HomeViewModel: ViewModelType {
         )
         
         let dataSource = fetchTrigger
-            .map { _ -> [HomeCellSectionModel] in
-                // TODO: api call
+            .asObservable()
+            .flatMap { _ -> Observable<[Post]> in
+                let currentUserResult: Result<User, Error> = AppUserDefaults.currentUser.get()
+                guard case let .success(user) = currentUserResult else {
+                    return Observable.just([])
+                }
+                return self.api.requestArray(by: .posts(.byName(user.userName)))
+            }
+            .map { posts -> [HomeCellSectionModel] in
                 var dataSource: [HomeCellSectionModel] = []
                 dataSource.append(.stockSection(items: self.stocks.map {
                     HomeCellSectionItem.stockSectionItem(stock: $0)
                 }))
-//                dataSource.append(.postSection(items: self.posts.map {
-//                    HomeCellSectionItem.postSectionItem(post: $0)
-//                }))
+                dataSource.append(.postSection(items: posts.map { HomeCellSectionItem.postSectionItem(post: $0) }))
                 return dataSource
             }
+            .asDriverOnErrorJustComplete()
         
         return Output(
             dataSource: dataSource,

@@ -72,6 +72,7 @@
 		1852770A2752BE0400CCE9E7 /* PostTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185277092752BE0400CCE9E7 /* PostTableViewCellViewModel.swift */; };
 		1852770C2753309500CCE9E7 /* ProfileStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1852770B2753309500CCE9E7 /* ProfileStoryboard.storyboard */; };
 		1852770F2753311500CCE9E7 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852770E2753311500CCE9E7 /* EditProfileViewController.swift */; };
+		185277112753539D00CCE9E7 /* Api+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185277102753539D00CCE9E7 /* Api+Request.swift */; };
 		3D95B4449EE07E85DCE1D7C8 /* Pods_OpenMVP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E23DD3C8031D89E10A3F49AF /* Pods_OpenMVP.framework */; };
 /* End PBXBuildFile section */
 
@@ -145,6 +146,7 @@
 		185277092752BE0400CCE9E7 /* PostTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		1852770B2753309500CCE9E7 /* ProfileStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileStoryboard.storyboard; sourceTree = "<group>"; };
 		1852770E2753311500CCE9E7 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		185277102753539D00CCE9E7 /* Api+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Request.swift"; sourceTree = "<group>"; };
 		2830A8507997842050F51C09 /* Pods-OpenMVP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMVP.release.xcconfig"; path = "Target Support Files/Pods-OpenMVP/Pods-OpenMVP.release.xcconfig"; sourceTree = "<group>"; };
 		AC8EC55BC1A626051EE41E08 /* Pods-OpenMVP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMVP.debug.xcconfig"; path = "Target Support Files/Pods-OpenMVP/Pods-OpenMVP.debug.xcconfig"; sourceTree = "<group>"; };
 		E23DD3C8031D89E10A3F49AF /* Pods_OpenMVP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenMVP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -370,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				185276DF2752318400CCE9E7 /* Api.swift */,
+				185277102753539D00CCE9E7 /* Api+Request.swift */,
 				185276892751692800CCE9E7 /* Models */,
 			);
 			path = Api;
@@ -700,6 +703,7 @@
 				1852766827515C0500CCE9E7 /* AppFont.swift in Sources */,
 				1852769427516F4800CCE9E7 /* UICollectionView+Ext.swift in Sources */,
 				1852765E2751594800CCE9E7 /* Log.swift in Sources */,
+				185277112753539D00CCE9E7 /* Api+Request.swift in Sources */,
 				1852768C2751693A00CCE9E7 /* Stock.swift in Sources */,
 				1852767627515E5C00CCE9E7 /* ProfileViewController.swift in Sources */,
 				1852767827515EFE00CCE9E7 /* TabBarControllerProtocol.swift in Sources */,

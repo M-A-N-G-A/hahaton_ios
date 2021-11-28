@@ -36,8 +36,6 @@ struct Post: Codable {
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "yyyy-MM-ddTHH:mm:ss.SSS"
         dateFormat.date(from: dateString)
-        Log.debug(dateString)
-        Log.debug(dateFormat.date(from: dateString))
         datePosted = dateFormat.date(from: dateString)
         notifs = try values.decode([String]?.self, forKey: .notifs)
         liked = try values.decode([User]?.self, forKey: .liked)

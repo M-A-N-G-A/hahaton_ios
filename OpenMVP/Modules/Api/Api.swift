@@ -15,6 +15,19 @@ protocol RoutePath {
 struct Api {
     enum Routes: RoutePath {
         
+        case followed(Followed)
+        enum Followed: RoutePath {
+            /// get: username: String
+            case posts(String)
+            
+            var path: String {
+                switch self {
+                case let .posts(username):
+                    return "" + username
+                }
+            }
+        }
+        
         /// post
         case login
         
@@ -59,6 +72,8 @@ struct Api {
         
         var path: String {
             switch self {
+            case let .followed(followed):
+                return "followed/" + followed.path
             case .login:
                 return "login"
             case let .posts(post):
@@ -74,153 +89,21 @@ struct Api {
     static let route = "http://gennadis.pythonanywhere.com/api/v1/"
     static let imageRoute = "http://gennadis.pythonanywhere.com"
     
-    private func makePath(route: Routes) -> String {
+    func makePath(route: Routes) -> String {
         let route = Api.route + route.path
         Log.debug(route)
         return route
     }
     
-    private func makeImagePath(name: String) -> String {
+    func makeImagePath(name: String) -> String {
         let route = Api.imageRoute + name
         Log.debug(route)
         return route
     }
     
-    private func jsonDecoder() -> JSONDecoder {
+    func jsonDecoder() -> JSONDecoder {
         let decoder = JSONDecoder()
-//        decoder.dateDecodingStrategy = .iso8601
         return decoder
-    }
-    
-    /// get
-    func request<ResultType: Codable>(by route: Routes) -> Observable<ResultType> {
-        return Observable.create { observer in
-            guard let url = URL(string: makePath(route: route)) else {
-                observer.onError(Errors.urlIsNil)
-                return Disposables.create()
-            }
-            
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let error = error {
-                    observer.onError(error)
-                    return
-                }
-                guard let data = data else { return }
-                do {
-                    let result = try jsonDecoder().decode(ResultType.self, from: data)
-                    observer.onNext(result)
-                    observer.onCompleted()
-                } catch {
-                    observer.onError(error)
-                }
-                
-            }.resume()
-            return Disposables.create()
-        }
-    }
-    
-    /// get
-    func requestArray<ResultType: Codable>(by route: Routes) -> Observable<[ResultType]> {
-        return Observable.create { observer in
-            guard let url = URL(string: makePath(route: route)) else {
-                observer.onError(Errors.urlIsNil)
-                return Disposables.create()
-            }
-            
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let error = error {
-                    observer.onError(error)
-                    return
-                }
-                guard let data = data else { return }
-                do {
-                    let result = try jsonDecoder().decode([ResultType].self, from: data)
-                    observer.onNext(result)
-                    observer.onCompleted()
-                } catch {
-                    observer.onError(error)
-                }
-                
-            }.resume()
-            return Disposables.create()
-        }
-    }
-    
-    /// post
-    func request<ResultType: Codable, BodyType: Codable>(by route: Routes, body: BodyType) -> Observable<ResultType> {
-        Observable.create { observer in
-            guard let url = URL(string: makePath(route: route)) else {
-                observer.onError(Errors.urlIsNil)
-                return Disposables.create()
-            }
-            
-            var urlRequest = URLRequest(url: url)
-            urlRequest.httpMethod = "POST"
-            urlRequest.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-            
-            do {
-                let bodyData = try JSONEncoder().encode(body)
-                urlRequest.httpBody = bodyData
-            } catch {
-                observer.onError(error)
-            }
-            
-            URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-                if let error = error {
-                    observer.onError(error)
-                    return
-                }
-                guard let data = data else { return }
-                do {
-                    let result = try jsonDecoder().decode(ResultType.self, from: data)
-                    
-                    observer.onNext(result)
-                    observer.onCompleted()
-                } catch {
-                    observer.onError(error)
-                }
-                
-            }.resume()
-            return Disposables.create()
-        }
-    }
-    
-    /// without response
-    func request<BodyType: Codable>(by route: Routes, body: BodyType) -> Observable<Void> {
-        Observable.create { observer in
-            guard let url = URL(string: makePath(route: route)) else {
-                observer.onError(Errors.urlIsNil)
-                return Disposables.create()
-            }
-            
-            var urlRequest = URLRequest(url: url)
-            urlRequest.httpMethod = "POST"
-            urlRequest.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-            
-            do {
-                let bodyData = try JSONEncoder().encode(body)
-                urlRequest.httpBody = bodyData
-            } catch {
-                observer.onError(error)
-            }
-            
-            URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-                if let error = error {
-                    observer.onError(error)
-                    return
-                }
-                
-                guard let httpResponse = response as? HTTPURLResponse else { return }
-                guard (200...299).contains(httpResponse.statusCode) else {
-                    observer.onError(Errors.withStatusCode(httpResponse.statusCode))
-                    return
-                }
-                observer.onNext(())
-                observer.onCompleted()
-                
-            }.resume()
-            return Disposables.create()
-        }
     }
     
     enum Errors: Error {
@@ -228,49 +111,5 @@ struct Api {
         case decodeFail
         case encodeFail
         case withStatusCode(Int)
-    }
-}
-
-extension Api {
-    func requestImage(by fileName: String) -> Observable<UIImage> {
-        Observable.create { observer in
-            guard let url = URL(string: makeImagePath(name: fileName)) else {
-                observer.onError(Errors.urlIsNil)
-                return Disposables.create()
-            }
-            
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let error = error {
-                    observer.onError(error)
-                    return
-                }
-                guard let data = data,
-                      let image = UIImage(data: data) else {
-                    observer.onError(Errors.decodeFail)
-                    return
-                }
-                observer.onNext(image)
-                observer.onCompleted()
-                
-            }.resume()
-            return Disposables.create()
-        }
-    }
-}
-
-fileprivate extension String {
-    func addQuery(field: String, value: String) -> Self {
-        guard self.contains("?") else {
-            return self + "?" + field + "=" + value
-        }
-        return self + "&" + field + "=" + value
-    }
-    
-    func addQuery(field: String, value: Any?) -> Self {
-        guard let value = value else { return self }
-        guard self.contains("?") else {
-            return self + "?" + field + "=" + String(describing: value)
-        }
-        return self + "&" + field + "=" + String(describing: value)
     }
 }

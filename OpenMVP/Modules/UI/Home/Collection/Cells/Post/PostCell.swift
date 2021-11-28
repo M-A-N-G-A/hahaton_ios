@@ -18,6 +18,7 @@ final class PostCell: UICollectionViewCell {
     
     private lazy var messageLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         // TODO: design
         return label
     }()
