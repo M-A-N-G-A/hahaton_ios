@@ -23,6 +23,8 @@ final class ProfileViewController: UIViewController {
     private lazy var postsTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(PostTableViewCell.self)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 300
         return tableView
     }()
     
@@ -100,12 +102,6 @@ private extension ProfileViewController {
         
         let output = viewModel.transform(input: input)
         
-        postsTableView.rx.setDelegate(self).disposed(by: disposeBag)
-        
-//        postsTableView.rx.modelSelected(Post.self).subscribe(onNext: { item in
-//
-//        }).disposed(by: disposeBag)
-        
         postsTableView.rx.itemSelected.subscribe(onNext: { index in
             self.postsTableView.deselectRow(at: index, animated: true)
         }).disposed(by: disposeBag)
@@ -155,19 +151,9 @@ private extension ProfileViewController {
             output.actions.messageTap.drive(),
             output.actions.editProfileTap.drive(),
             
-            output.stateForView.drive(stateBinder),
             output.stateForView.drive(actionsView.stateBinder)
         ]
         .forEach { $0.disposed(by: disposeBag) }
-    }
-}
-
-// MARK: - Rx Binders
-extension ProfileViewController {
-    var stateBinder: Binder<ProfileViewModel.State> {
-        Binder(self) { view, state in
-            // TODO: change cells or smth
-        }
     }
 }
 
@@ -183,12 +169,5 @@ extension ProfileViewController: TabBarControllerProtocol {
     
     func setupTabBarSettings() {
         self.title = tabBarTitle
-    }
-}
-
-// MARK: - UITableViewDelegate
-extension ProfileViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        CGFloat(400)
     }
 }
