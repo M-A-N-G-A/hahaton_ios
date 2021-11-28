@@ -35,6 +35,7 @@ final class PostViewController: UIViewController {
         setupUI()
         makeSubviewsLayout()
         setupBindings()
+//        _profileView.imageView.image = UIColor.systemBlue.image()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,7 +45,19 @@ final class PostViewController: UIViewController {
     }
     
     func setup(_ post: Post) {
-        _profileView.imageView.image = UIColor.systemBlue.image()
+        
+        if let profileImage = post.user?.imageFile {
+            Api()._requestImage(by: profileImage) { result in
+                switch result {
+                case let .success(image):
+                    self._profileView.imageView.image = image
+                case let .failure(error):
+                    Log.debug(error)
+                    Log.debug("nothing doing")
+                }
+            }
+        }
+        
         _profileView.nameLabel.text = post.user?.userName ?? "Nope name"
         messageLabel.text = post.content
         

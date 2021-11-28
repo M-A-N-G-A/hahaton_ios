@@ -39,8 +39,8 @@ struct Post: Codable {
         datePosted = dateFormat.date(from: dateString)
         notifs = try values.decode([String]?.self, forKey: .notifs)
         liked = try values.decode([User]?.self, forKey: .liked)
-//        user = try values.decode(User?.self, forKey: .user)
-        user = nil
+        user = try values.decode(User?.self, forKey: .user)
+//        user = nil
         userID = try values.decode(Int?.self, forKey: .userID)
         content = try values.decode(String.self, forKey: .content)
         media = try values.decode(String?.self, forKey: .media)

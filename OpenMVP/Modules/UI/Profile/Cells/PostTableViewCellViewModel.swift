@@ -56,9 +56,12 @@ final class PostTableViewCellViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         
-        let profileImage = Driver.just(model.user?.imageFile)
-            .map { $0?.image() }
+        let profileImage = Observable.just(model.user?.imageFile)
             .compactMap { $0 }
+            .flatMap { imageName -> Observable<UIImage> in
+                Api().requestImage(by: imageName)
+            }
+            .asDriverOnErrorJustComplete()
         let profileName = Driver.just(model.user?.userName)
             .compactMap { $0 }
         let time = Driver.just(model.datePosted)
