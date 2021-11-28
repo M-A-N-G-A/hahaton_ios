@@ -44,6 +44,18 @@ struct Api {
             }
         }
         
+        case post(Post)
+        enum Post: RoutePath {
+            case create
+            
+            var path: String {
+                switch self {
+                case .create:
+                    return "create"
+                }
+            }
+        }
+        
         case posts(Posts)
         enum Posts: RoutePath {
             /// get
@@ -76,6 +88,8 @@ struct Api {
                 return "followed/" + followed.path
             case .login:
                 return "login"
+            case let .post(post):
+                return "post/" + post.path
             case let .posts(post):
                 return "posts/" + post.path
             case let .users(user):

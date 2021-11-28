@@ -98,8 +98,13 @@ private extension MakePostViewController {
         
         [
             output.image.drive(imageView.stateBinder),
+            output.message.drive(),
+            
+            output.imageThrow.drive(),
             
             output.success.drive(successBinder),
+            output.success.drive(hideKeyboard),
+            output.error.mapToVoid().drive(hideKeyboard),
             output.error.drive(errorBinder)
         ]
         .forEach { $0.disposed(by: disposeBag) }
@@ -123,6 +128,12 @@ extension MakePostViewController: TabBarControllerProtocol {
 
 // MARK: - Rx Binders
 extension MakePostViewController {
+    var hideKeyboard: Binder<Void> {
+        Binder(self) { view, _ in
+            view.textView.resignFirstResponder()
+        }
+    }
+    
     var postBtnKeyboardBinder: Binder<CGFloat> {
         Binder(self) { view, height in
             UIView.animate(withDuration: 0.3) {

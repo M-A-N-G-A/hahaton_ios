@@ -20,12 +20,17 @@ final class MakePostViewModel: ViewModelType {
         let deleteTap: Driver<Void>
     }
     struct Output {
+        let message: Driver<String?>
         let image: Driver<RemovableImageView.State>
+        let imageThrow: Driver<UIImage?>
         
         let loading: Driver<Bool>
         let error: Driver<Error>
         let success: Driver<Void>
     }
+    
+    var message: String?
+    var image: UIImage?
     
     let navigator: MakePostNavigatorProtocol
     
@@ -38,19 +43,36 @@ final class MakePostViewModel: ViewModelType {
         let activityIndicator = ActivityIndicator()
         let errorTracker = ErrorTracker()
         
-        let success = input.postTap
-            .flatMap {
-                Driver.combineLatest(input.message, input.imageState.startWith(.blank))
-            }
-            .do(onNext: { (message, image) in
-                Log.debug(message)
-                Log.debug(image)
+        let message = input.message
+            .do(onNext: { text in
+                self.message = text
             })
-//            .flatMap { _ -> SharedSequence<DriverSharingStrategy, Void> in
-//                Api().request(by: .comments(.toPostById("1")), body: postAddComment).asDriverOnErrorJustComplete()
-//            }
-            .mapToVoid() // request api
-            .throttle(.seconds(5))
+        let imageToThrow = input.imageState
+            .do(onNext: { state in
+                switch state {
+                case let .imageSelected(image):
+                    self.image = image
+                case .blank:
+                    Log.debug("nothing")
+                }
+            })
+            .map { _ in self.image }
+        
+        let success = input.postTap
+            .asObservable()
+            .filter {
+                self.message != nil// && self.image != nil
+            }
+            .flatMap { _ -> Observable<Void> in
+                let currentUserResult: Result<User, Error> = AppUserDefaults.currentUser.get()
+                guard case let .success(user) = currentUserResult else {
+                    return Observable.just(())
+                }
+                let body = PostCreateBody(user_id: user.uid, content: self.message!, media: "empty")
+                return Api().request(by: .post(.create), body: body)
+            }
+            .debug()
+            .mapToVoid()
             .trackActivity(activityIndicator)
             .trackError(errorTracker)
             .asDriverOnErrorJustComplete()
@@ -69,7 +91,10 @@ final class MakePostViewModel: ViewModelType {
         let image = Driver.merge(importedState, deleteState)
         
         return Output(
+            message: message,
             image: image,
+            
+            imageThrow: imageToThrow,
             
             loading: activityIndicator.asDriver(),
             error: errorTracker.asDriver(),
