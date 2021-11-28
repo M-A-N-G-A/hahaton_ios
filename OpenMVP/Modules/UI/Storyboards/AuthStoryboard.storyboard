@@ -17,6 +17,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Логин" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCY-na-ZHW">
+                                <rect key="frame" x="16" y="216.5" width="48.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пароль" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6Q-6x-CeR">
                                 <rect key="frame" x="16" y="295" width="382" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -64,19 +70,27 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Логин" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCY-na-ZHW">
-                                <rect key="frame" x="16" y="216.5" width="48.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Нет учетной записи?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EU2-DU-ARA">
+                                <rect key="frame" x="256.5" y="389.5" width="141.5" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Tz-jx-EII">
+                                <rect key="frame" x="258" y="422.5" width="140" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="Зарегистрироваться"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="8Tz-jx-EII" firstAttribute="top" secondItem="EU2-DU-ARA" secondAttribute="bottom" constant="16" id="2rL-R9-Oeo"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="XIg-E8-SOk" secondAttribute="trailing" id="77r-Rn-nKV"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="1gW-di-Su5" secondAttribute="bottom" constant="16" id="8QZ-u7-QtA"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="aVv-ye-FrU" secondAttribute="trailing" constant="16" id="8g6-MP-gQb"/>
+                            <constraint firstItem="EU2-DU-ARA" firstAttribute="top" secondItem="2A9-ko-dIf" secondAttribute="bottom" constant="32" id="ANn-n5-Tz2"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="8Tz-jx-EII" secondAttribute="trailing" constant="16" id="KKx-tH-Zoz"/>
                             <constraint firstItem="aVv-ye-FrU" firstAttribute="top" secondItem="dCY-na-ZHW" secondAttribute="bottom" constant="8" id="Lyn-Ap-7jw"/>
                             <constraint firstItem="dCY-na-ZHW" firstAttribute="top" secondItem="zOX-GB-rYd" secondAttribute="bottom" constant="16" id="TRE-ws-k6j"/>
                             <constraint firstItem="zOX-GB-rYd" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="Tab-uO-28M"/>
@@ -87,6 +101,7 @@
                             <constraint firstItem="1gW-di-Su5" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="ZPu-9b-goL"/>
                             <constraint firstItem="Y6Q-6x-CeR" firstAttribute="top" secondItem="aVv-ye-FrU" secondAttribute="bottom" constant="16" id="b6i-dt-k9V"/>
                             <constraint firstItem="aVv-ye-FrU" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="gVH-oI-vaZ"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="EU2-DU-ARA" secondAttribute="trailing" constant="16" id="j3J-dz-qTu"/>
                             <constraint firstItem="2A9-ko-dIf" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="m4D-o0-LUp"/>
                             <constraint firstItem="dCY-na-ZHW" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="odC-BG-gXL"/>
                             <constraint firstItem="XIg-E8-SOk" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="ol4-BZ-ko1"/>
@@ -111,6 +126,9 @@
     </scenes>
     <resources>
         <image name="LogoIcon" width="535" height="533"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
