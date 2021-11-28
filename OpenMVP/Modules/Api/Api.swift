@@ -80,6 +80,12 @@ struct Api {
         return route
     }
     
+    private func makeImagePath(name: String) -> String {
+        let route = Api.imageRoute + name
+        Log.debug(route)
+        return route
+    }
+    
     private func jsonDecoder() -> JSONDecoder {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
@@ -222,6 +228,33 @@ struct Api {
         case decodeFail
         case encodeFail
         case withStatusCode(Int)
+    }
+}
+
+extension Api {
+    func requestImage(by fileName: String) -> Observable<UIImage> {
+        Observable.create { observer in
+            guard let url = URL(string: makeImagePath(name: fileName)) else {
+                observer.onError(Errors.urlIsNil)
+                return Disposables.create()
+            }
+            
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    observer.onError(error)
+                    return
+                }
+                guard let data = data,
+                      let image = UIImage(data: data) else {
+                    observer.onError(Errors.decodeFail)
+                    return
+                }
+                observer.onNext(image)
+                observer.onCompleted()
+                
+            }.resume()
+            return Disposables.create()
+        }
     }
 }
 

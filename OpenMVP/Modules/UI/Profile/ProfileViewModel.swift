@@ -56,8 +56,13 @@ final class ProfileViewModel: ViewModelType {
             .map { $0.first }
             .compactMap { $0 }
         let image = user
-            .map { $0.imageFile.image() }
+            .asObservable()
+            .map { $0.imageFile }
+            .flatMap { imageName -> Observable<UIImage> in
+                self.api.requestImage(by: imageName)
+            }
             .compactMap { $0 }
+            .asDriverOnErrorJustComplete()
         let followers = user
             .map { $0.followers?.count }
         let name = user
