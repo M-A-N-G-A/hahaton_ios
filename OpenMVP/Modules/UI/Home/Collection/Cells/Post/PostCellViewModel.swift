@@ -41,7 +41,7 @@ final class PostCellViewModel: ViewModelType {
         let shareTap: Driver<Void>
         let bookmarkTap: Driver<Void>
         
-//        let imageHeight: Driver<CGFloat>
+        let imageHeight: Driver<CGFloat>
     }
         
     let model: Post
@@ -82,8 +82,8 @@ final class PostCellViewModel: ViewModelType {
         let likeUsers = Driver.just(model.liked)
             .compactMap { $0 }
         
-//        let imageHeight = image
-//            .map { $0.size.height }
+        let imageHeight = Driver.just(model.media)
+            .map { CGFloat($0 == nil ? 0 : 400) }
         
         return Output(
             profile: PostCellViewModel.Output.Profile(
@@ -103,9 +103,9 @@ final class PostCellViewModel: ViewModelType {
             likeTap: input.likeTap,
             messageTap: input.messageTap,
             shareTap: input.shareTap,
-            bookmarkTap: input.bookmarkTap
+            bookmarkTap: input.bookmarkTap,
             
-//            imageHeight: imageHeight
+            imageHeight: imageHeight
         )
     }
 }

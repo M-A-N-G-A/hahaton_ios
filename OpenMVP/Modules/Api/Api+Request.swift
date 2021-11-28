@@ -169,6 +169,31 @@ extension Api {
         }
     }
     
+    func requestURLImage(by url: String) -> Observable<UIImage> {
+        Observable.create { observer in
+            guard let url = URL(string: url) else {
+                observer.onError(Errors.urlIsNil)
+                return Disposables.create()
+            }
+            
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    observer.onError(error)
+                    return
+                }
+                guard let data = data,
+                      let image = UIImage(data: data) else {
+                    observer.onError(Errors.decodeFail)
+                    return
+                }
+                observer.onNext(image)
+                observer.onCompleted()
+                
+            }.resume()
+            return Disposables.create()
+        }
+    }
+    
     func _requestImage(by fileName: String, complete: @escaping (Result<UIImage, Error>) -> Void) {
         guard let url = URL(string: makeImagePath(name: fileName)) else {
             complete(.failure(Errors.urlIsNil))

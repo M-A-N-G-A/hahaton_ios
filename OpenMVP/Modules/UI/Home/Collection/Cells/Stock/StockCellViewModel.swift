@@ -26,10 +26,13 @@ final class StockCellViewModel: ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        let icon = Driver.just(model.icon.image())
-            .compactMap { $0 }
-        let title = Driver.just(model.title)
-        let value = Driver.just(model.value)
+        let icon = Observable.just(model.logo)
+            .flatMap { logoUrl -> Observable<UIImage> in
+                Api().requestURLImage(by: logoUrl)
+            }
+            .asDriverOnErrorJustComplete()
+        let title = Driver.just(model.ticker)
+        let value = Driver.just(model.price)
             .map { self.prepare(value: $0) }
         
         return Output(
@@ -42,7 +45,7 @@ final class StockCellViewModel: ViewModelType {
 
 // MARK: - Helpers
 private extension StockCellViewModel {
-    func prepare(value: Float) -> String {
+    func prepare(value: Double) -> String {
         "$\(value)"
     }
 }

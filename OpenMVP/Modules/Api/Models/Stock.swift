@@ -7,12 +7,21 @@
 
 import Foundation
 
-struct Stock {
-    let id: String = UUID().uuidString
-    let title: String
-    let icon: String
-    let description: String
-    let value: Float
+struct Stock: Codable {
+    let id = UUID()
+    let logo: String
+    let price: Double
+    let priceChange: Double
+    let summary: String
+    let ticker: String
+
+    enum CodingKeys: String, CodingKey {
+        case logo = "logo"
+        case price = "price"
+        case priceChange = "price_change"
+        case summary = "summary"
+        case ticker = "ticker"
+    }
 }
 
 extension Stock: Equatable {

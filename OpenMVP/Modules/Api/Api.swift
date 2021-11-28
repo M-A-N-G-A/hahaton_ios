@@ -15,6 +15,18 @@ protocol RoutePath {
 struct Api {
     enum Routes: RoutePath {
         
+        case tickers(Tickers)
+        enum Tickers: RoutePath {
+            case byUserName(String)
+            
+            var path: String {
+                switch self {
+                case let .byUserName(username):
+                    return "" + username
+                }
+            }
+        }
+        
         case recomendations(Recomendations)
         enum Recomendations: RoutePath {
             case toPostByName(String)
@@ -96,6 +108,8 @@ struct Api {
         
         var path: String {
             switch self {
+            case let .tickers(ticker):
+                return "tickers/" + ticker.path
             case let .recomendations(recomendations):
                 return "recomendations/" + recomendations.path
             case let .followed(followed):

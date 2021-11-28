@@ -44,8 +44,8 @@
                                     <constraint firstAttribute="height" constant="32" id="7ik-HN-11i"/>
                                 </constraints>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scribble" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZZD-5d-Rgp">
-                                <rect key="frame" x="16" y="326" width="382" height="399"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZZD-5d-Rgp">
+                                <rect key="frame" x="16" y="326" width="382" height="400"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="400" id="U33-jy-uTN"/>
                                 </constraints>
@@ -86,7 +86,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="scribble" catalog="system" width="128" height="118"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
