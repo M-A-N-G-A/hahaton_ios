@@ -85,6 +85,8 @@ final class HomeViewModel: ViewModelType {
             .do(onNext: { posts in
                 self.dataSource = posts
             })
+            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
+            .observeOn(MainScheduler.instance)
             .asDriverOnErrorJustComplete()
         
         let indexSelected = input.cellActions.indexSelected

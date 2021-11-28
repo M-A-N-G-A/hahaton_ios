@@ -77,15 +77,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Tz-jx-EII">
-                                <rect key="frame" x="258" y="422.5" width="140" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <rect key="frame" x="241" y="414.5" width="157" height="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <state key="normal" title="Зарегистрироваться"/>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="8Tz-jx-EII" firstAttribute="top" secondItem="EU2-DU-ARA" secondAttribute="bottom" constant="16" id="2rL-R9-Oeo"/>
+                            <constraint firstItem="8Tz-jx-EII" firstAttribute="top" secondItem="EU2-DU-ARA" secondAttribute="bottom" constant="8" id="2rL-R9-Oeo"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="XIg-E8-SOk" secondAttribute="trailing" id="77r-Rn-nKV"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="1gW-di-Su5" secondAttribute="bottom" constant="16" id="8QZ-u7-QtA"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="aVv-ye-FrU" secondAttribute="trailing" constant="16" id="8g6-MP-gQb"/>

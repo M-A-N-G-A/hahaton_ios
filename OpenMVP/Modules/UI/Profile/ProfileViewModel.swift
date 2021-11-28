@@ -75,6 +75,8 @@ final class ProfileViewModel: ViewModelType {
                 return self.api.request(by: .users(.byName(userName)))
             }
             .compactMap { $0 }
+            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
+            .observeOn(MainScheduler.instance)
             .asDriverOnErrorJustComplete()
         let image = user
             .asObservable()
@@ -82,7 +84,8 @@ final class ProfileViewModel: ViewModelType {
             .flatMap { imageName -> Observable<UIImage> in
                 self.api.requestImage(by: imageName)
             }
-            .compactMap { $0 }
+            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
+            .observeOn(MainScheduler.instance)
             .asDriverOnErrorJustComplete()
         let followers = user
             .map { $0.followers?.count }
@@ -103,7 +106,8 @@ final class ProfileViewModel: ViewModelType {
                 }
                 return self.api.requestArray(by: .posts(.byName(user.userName)))
             }
-            .debug()
+            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
+            .observeOn(MainScheduler.instance)
             .asDriverOnErrorJustComplete()
         
         let editProfileTap = input.actions.editProfileTap
