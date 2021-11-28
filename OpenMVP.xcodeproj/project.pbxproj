@@ -70,6 +70,8 @@
 		185277052752BC9800CCE9E7 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185277042752BC9800CCE9E7 /* UITableView+Ext.swift */; };
 		185277072752BDB200CCE9E7 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185277062752BDB200CCE9E7 /* PostTableViewCell.swift */; };
 		1852770A2752BE0400CCE9E7 /* PostTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185277092752BE0400CCE9E7 /* PostTableViewCellViewModel.swift */; };
+		1852770C2753309500CCE9E7 /* ProfileStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1852770B2753309500CCE9E7 /* ProfileStoryboard.storyboard */; };
+		1852770F2753311500CCE9E7 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852770E2753311500CCE9E7 /* EditProfileViewController.swift */; };
 		3D95B4449EE07E85DCE1D7C8 /* Pods_OpenMVP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E23DD3C8031D89E10A3F49AF /* Pods_OpenMVP.framework */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +143,8 @@
 		185277042752BC9800CCE9E7 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		185277062752BDB200CCE9E7 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		185277092752BE0400CCE9E7 /* PostTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		1852770B2753309500CCE9E7 /* ProfileStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileStoryboard.storyboard; sourceTree = "<group>"; };
+		1852770E2753311500CCE9E7 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		2830A8507997842050F51C09 /* Pods-OpenMVP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMVP.release.xcconfig"; path = "Target Support Files/Pods-OpenMVP/Pods-OpenMVP.release.xcconfig"; sourceTree = "<group>"; };
 		AC8EC55BC1A626051EE41E08 /* Pods-OpenMVP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMVP.debug.xcconfig"; path = "Target Support Files/Pods-OpenMVP/Pods-OpenMVP.debug.xcconfig"; sourceTree = "<group>"; };
 		E23DD3C8031D89E10A3F49AF /* Pods_OpenMVP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenMVP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,6 +239,7 @@
 				185276C92751D51400CCE9E7 /* MakePost */,
 				1852766D27515D4000CCE9E7 /* Home */,
 				1852767427515E5400CCE9E7 /* Profile */,
+				1852770D2753310000CCE9E7 /* EditProfile */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -490,6 +495,7 @@
 			isa = PBXGroup;
 			children = (
 				185276EA2752974F00CCE9E7 /* AuthStoryboard.storyboard */,
+				1852770B2753309500CCE9E7 /* ProfileStoryboard.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -517,6 +523,14 @@
 				185277092752BE0400CCE9E7 /* PostTableViewCellViewModel.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		1852770D2753310000CCE9E7 /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				1852770E2753311500CCE9E7 /* EditProfileViewController.swift */,
+			);
+			path = EditProfile;
 			sourceTree = "<group>";
 		};
 		63C80DD0B65E3703E558EAE8 /* Pods */ = {
@@ -600,6 +614,7 @@
 				185276B22751794200CCE9E7 /* Localizable.strings in Resources */,
 				1852764D275156BF00CCE9E7 /* Assets.xcassets in Resources */,
 				185276EB2752974F00CCE9E7 /* AuthStoryboard.storyboard in Resources */,
+				1852770C2753309500CCE9E7 /* ProfileStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,6 +675,7 @@
 				185276902751694C00CCE9E7 /* User.swift in Sources */,
 				185277072752BDB200CCE9E7 /* PostTableViewCell.swift in Sources */,
 				185276D32751D7AE00CCE9E7 /* ErrorTracker.swift in Sources */,
+				1852770F2753311500CCE9E7 /* EditProfileViewController.swift in Sources */,
 				185277052752BC9800CCE9E7 /* UITableView+Ext.swift in Sources */,
 				185276C22751AF9C00CCE9E7 /* ProfileActionsView.swift in Sources */,
 				185276A2275172F000CCE9E7 /* String+Ext.swift in Sources */,

@@ -105,6 +105,11 @@ final class ProfileViewModel: ViewModelType {
             .debug()
             .asDriverOnErrorJustComplete()
         
+        let editProfileTap = input.actions.editProfileTap
+            .do(onNext: {
+                self.navigator.pushEditProfile()
+            })
+        
         return Output(
             image: image,
             followers: followers,
@@ -119,7 +124,7 @@ final class ProfileViewModel: ViewModelType {
             actions: ProfileViewModel.Output.Actions(
                 followTap: input.actions.followTap,
                 messageTap: input.actions.messageTap,
-                editProfileTap: input.actions.editProfileTap
+                editProfileTap: editProfileTap
             )
         )
     }

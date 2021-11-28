@@ -93,7 +93,8 @@ private extension ProfileViewController {
             
             actions: ProfileViewModel.Input.Actions(
                 followTap: actionsView.followBtn.rx.tap.asDriverOnErrorJustComplete(),
-                messageTap: actionsView.messageBtn.rx.tap.asDriverOnErrorJustComplete()
+                messageTap: actionsView.messageBtn.rx.tap.asDriverOnErrorJustComplete(),
+                editProfileTap: actionsView.editBtn.rx.tap.asDriverOnErrorJustComplete()
             )
         )
         
@@ -143,6 +144,7 @@ private extension ProfileViewController {
             output.accuracy.drive(summaryView.accuracyBinder),
             output.actions.followTap.drive(),
             output.actions.messageTap.drive(),
+            output.actions.editProfileTap.drive(),
             
             output.stateForView.drive(stateBinder),
             output.stateForView.drive(actionsView.stateBinder)

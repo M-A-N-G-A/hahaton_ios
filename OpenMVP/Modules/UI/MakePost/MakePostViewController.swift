@@ -109,7 +109,7 @@ private extension MakePostViewController {
 // MARK: - TabBarControllerProtocol
 extension MakePostViewController: TabBarControllerProtocol {
     var tabBarTitle: String {
-        "Add"
+        "Make a post"
     }
     
     var tabBarIcon: UIImage? {

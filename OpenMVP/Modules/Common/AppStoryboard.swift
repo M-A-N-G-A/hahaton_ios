@@ -9,4 +9,5 @@ import Foundation
 
 enum AppStoryboard: String {
     case auth = "AuthStoryboard"
+    case profile = "ProfileStoryboard"
 }

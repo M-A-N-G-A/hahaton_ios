@@ -8,7 +8,7 @@
 import UIKit.UINavigationController
 
 protocol ProfileNavigatorProtocol {
-    
+    func pushEditProfile()
 }
 
 final class ProfileNavigator {
@@ -20,5 +20,8 @@ final class ProfileNavigator {
 }
 
 extension ProfileNavigator: ProfileNavigatorProtocol {
-    
+    func pushEditProfile() {
+        let editProfileVC = EditProfileViewController.instantiate(appStoryboard: .profile)
+        navigationController.pushViewController(editProfileVC, animated: true)
+    }
 }
