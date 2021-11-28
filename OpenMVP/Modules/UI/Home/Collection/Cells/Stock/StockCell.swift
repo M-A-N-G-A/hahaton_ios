@@ -64,7 +64,7 @@ private extension StockCell {
     func setupUI() {
         layer.masksToBounds = true
         layer.cornerRadius = 8
-        layer.borderWidth = 2
+        layer.borderWidth = 1
         layer.borderColor = UIColor.systemBlue.cgColor // TODO: open color
         
         addSubview(containerView)
@@ -114,17 +114,4 @@ extension StockCell {
         ]
         .forEach { $0.disposed(by: disposeBag) }
     }
-    
-//    func setupBindings() {
-//        guard let viewModel = viewModel else { return }
-//        let input = StockCellViewModel.Input()
-//        let output = viewModel.transform(input: input)
-//
-//        [
-//            output.icon.drive(imageView.rx.image),
-//            output.title.drive(titleLabel.rx.text),
-//            output.value.drive(valueLabel.rx.text)
-//        ]
-//        .forEach { $0.disposed(by: disposeBag) }
-//    }
 }

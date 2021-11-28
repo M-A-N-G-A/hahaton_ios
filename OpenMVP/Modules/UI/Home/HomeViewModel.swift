@@ -43,12 +43,6 @@ final class HomeViewModel: ViewModelType {
         }
     }
     
-//    let stocks = [
-//        Stock(title: "Doge-Coin", icon: "Doge.icon", description: "Doge coin is coin", value: 134),
-//        Stock(title: "Apple", icon: "Apple.icon", description: "Apple stock is stock", value: 1344),
-//        Stock(title: "Tesla", icon: "Tesla.icon", description: "Tesla stock is stock", value: 1348)
-//    ]
-    
     let navigator: HomeNavigatorProtocol
     let api: Api
     
@@ -85,40 +79,18 @@ final class HomeViewModel: ViewModelType {
                 return self.api.requestArray(by: .tickers(.byUserName(user.userName)))
             }
         
-//        let dataSource = fetchTrigger
-//            .asObservable()
-//            .flatMap { _ -> Observable<[Post]> in
-//                let currentUserResult: Result<User, Error> = AppUserDefaults.currentUser.get()
-//                guard case let .success(user) = currentUserResult else {
-//                    return Observable.just([])
-//                }
-////                return self.api.requestArray(by: .posts(.byName(user.userName)))
-//                return self.api.requestArray(by: .followed(.posts(user.userName)))
-//            }
-//            .map { posts -> [HomeCellSectionModel] in
-//                var dataSource: [HomeCellSectionModel] = []
-////                dataSource.append(.stockSection(items: self.stocks.map {
-////                    HomeCellSectionItem.stockSectionItem(stock: $0)
-////                }))
-//                dataSource.append(.postSection(items: posts.map { HomeCellSectionItem.postSectionItem(post: $0) }))
-//                return dataSource
-//            }
         let dataSource = Observable.zip(stocks, followedPosts)
             .flatMap { stocks, posts -> Observable<[HomeCellSectionModel]> in
                 var dataSource: [HomeCellSectionModel] = []
-                //                dataSource.append(.stockSection(items: self.stocks.map {
-                //                    HomeCellSectionItem.stockSectionItem(stock: $0)
-                //                }))
                 dataSource.append(.stockSection(items: stocks.map { HomeCellSectionItem.stockSectionItem(stock: $0) }))
-                dataSource.append(.postSection(items: posts.map { HomeCellSectionItem.postSectionItem(post: $0) }))
+                let tempPosts = posts.filter { $0.user?.userName != "kira777" }
+                dataSource.append(.postSection(items: tempPosts.map { HomeCellSectionItem.postSectionItem(post: $0) }))
                 return Observable.just(dataSource)
             }
             .do(onNext: { dataSource in
                 self.dataSource = dataSource
             })
             .debug()
-            //            .subscribeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
-            //            .observeOn(MainScheduler.instance)
             .asDriverOnErrorJustComplete()
         
         let indexSelected = input.cellActions.indexSelected
