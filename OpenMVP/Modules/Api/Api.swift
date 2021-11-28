@@ -72,7 +72,7 @@ struct Api {
     }
     
     static let route = "http://gennadis.pythonanywhere.com/api/v1/"
-    static let imageRoute = "http://gennadis.pythonanywhere.com/"
+    static let imageRoute = "http://gennadis.pythonanywhere.com"
     
     private func makePath(route: Routes) -> String {
         let route = Api.route + route.path

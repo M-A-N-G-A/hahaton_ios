@@ -10,6 +10,12 @@ import RxSwift
 import RxCocoa
 
 final class ProfileViewModel: ViewModelType {
+
+    enum State {
+        case me
+        case other(User)
+    }
+    
     struct Input {
         let willAppear: Driver<Void>
         
@@ -17,6 +23,7 @@ final class ProfileViewModel: ViewModelType {
         struct Actions {
             let followTap: Driver<Void>
             let messageTap: Driver<Void>
+            let editProfileTap: Driver<Void>
         }
     }
     struct Output {
@@ -26,20 +33,26 @@ final class ProfileViewModel: ViewModelType {
         let accuracy: Driver<String?>
         let description: Driver<String>
         
+        let stateForView: Driver<State>
+        
         let posts: Driver<[Post]>
         
         let actions: Actions
         struct Actions {
             let followTap: Driver<Void>
             let messageTap: Driver<Void>
+            let editProfileTap: Driver<Void>
         }
     }
     
     private let navigator: ProfileNavigatorProtocol
     private let api: Api
     
-    init(navigator: ProfileNavigatorProtocol) {
+    private let state: State
+    
+    init(navigator: ProfileNavigatorProtocol, state: State) {
         self.navigator = navigator
+        self.state = state
         self.api = Api()
     }
     
@@ -47,11 +60,18 @@ final class ProfileViewModel: ViewModelType {
         let fetchTrigger = input.willAppear
         let user = fetchTrigger
             .flatMap { _ -> SharedSequence<DriverSharingStrategy, [User]> in
-                let currentUserResult: Result<User, Error> = AppUserDefaults.currentUser.get()
-                guard case let .success(user) = currentUserResult else {
-                    return Driver.just([])
+                var userName: String
+                switch self.state {
+                case .me:
+                    let currentUserResult: Result<User, Error> = AppUserDefaults.currentUser.get()
+                    guard case let .success(user) = currentUserResult else {
+                        return Driver.just([])
+                    }
+                    userName = user.userName
+                case let .other(otherUser):
+                    userName = otherUser.userName
                 }
-                return self.api.requestArray(by: .users(.byName(user.userName))).asDriverOnErrorJustComplete()
+                return self.api.requestArray(by: .users(.byName(userName))).asDriverOnErrorJustComplete()
             }
             .map { $0.first }
             .compactMap { $0 }
@@ -92,11 +112,14 @@ final class ProfileViewModel: ViewModelType {
             accuracy: accuracy,
             description: description,
             
+            stateForView: Driver.just(self.state),
+            
             posts: posts,
             
             actions: ProfileViewModel.Output.Actions(
                 followTap: input.actions.followTap,
-                messageTap: input.actions.messageTap
+                messageTap: input.actions.messageTap,
+                editProfileTap: input.actions.editProfileTap
             )
         )
     }

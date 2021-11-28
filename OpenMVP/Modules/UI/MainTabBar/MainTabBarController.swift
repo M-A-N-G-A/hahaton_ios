@@ -26,7 +26,7 @@ class MainTabBarController: UITabBarController {
     private lazy var profileVC: UINavigationController = {
         let vc = ProfileViewController()
         let navigationVC = UINavigationController(rootViewController: vc)
-        vc.viewModel = ProfileViewModel(navigator: ProfileNavigator(navigationController: navigationVC))
+        vc.viewModel = ProfileViewModel(navigator: ProfileNavigator(navigationController: navigationVC), state: .me)
         return navigationVC
     }()
     

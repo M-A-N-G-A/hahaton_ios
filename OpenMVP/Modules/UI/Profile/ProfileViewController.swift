@@ -142,9 +142,21 @@ private extension ProfileViewController {
             output.followers.drive(summaryView.followersBinder),
             output.accuracy.drive(summaryView.accuracyBinder),
             output.actions.followTap.drive(),
-            output.actions.messageTap.drive()
+            output.actions.messageTap.drive(),
+            
+            output.stateForView.drive(stateBinder),
+            output.stateForView.drive(actionsView.stateBinder)
         ]
         .forEach { $0.disposed(by: disposeBag) }
+    }
+}
+
+// MARK: - Rx Binders
+extension ProfileViewController {
+    var stateBinder: Binder<ProfileViewModel.State> {
+        Binder(self) { view, state in
+            // TODO: change cells or smth
+        }
     }
 }
 
